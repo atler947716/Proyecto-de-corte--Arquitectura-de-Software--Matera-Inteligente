@@ -1,0 +1,12 @@
+especie,humedad_min,humedad_max,luz_min,luz_max,temp_min,temp_max,fuente
+Frailejón (Espeletia spp.),40,70,300,1500,5,18,"https://es.wikipedia.org/wiki/Espeletia"
+Encenillo (Weinmannia tomentosa),50,80,200,1200,6,18,"https://www.lifeder.com/weinmannia-tomentosa/"
+Aliso (Alnus acuminata),40,70,400,2000,10,25,"https://catalogofloravalleaburra.eia.edu.co/especies/arboles/alnus-acuminata"
+Pino Romerón (Prumnopitys montana),50,85,150,1000,8,16,"https://es.wikipedia.org/wiki/Prumnopitys_montana"
+Roble Andino (Quercus humboldtii),40,75,300,1500,12,24,"https://es.wikipedia.org/wiki/Quercus_humboldtii"
+Gaque o Cucharo (Clusia spp.),40,70,400,2000,15,28,"https://www.houseplantalley.com/clusia-care/"
+Saúco (Sambucus nigra),45,75,300,1500,10,22,"https://www.consultaplantas.com/index.php/es/plantas-por-nombre/plantas-de-la-a-a-la-z/1308-plantas-de-sambucus-nigra-o-sauco-cuidados"
+Mano de oso (Oreopanax spp.),40,70,300,1200,10,22,"https://catalogofloravalleaburra.eia.edu.co/especies/arboles/oreopanax-incisus"
+Tuno esmeraldo (Miconia spp.),30,60,500,2000,10,20,"https://es.wikipedia.org/wiki/Miconia_squamulosa"
+Raque (Vallea stipularis),50,80,200,1000,8,18,"https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:835295-1"
+Cedro de Montaña (Cedrela montana),40,70,400,1800,10,20,"https://catalogofloravalleaburra.eia.edu.co/especies/arboles/cedrela-montana"

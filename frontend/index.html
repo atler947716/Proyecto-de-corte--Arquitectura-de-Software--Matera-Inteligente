@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matera Inteligente</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <main>
+        <h1>Diagnóstico de tu planta</h1>
+
+        <form id="formulario-diagnostico">
+            <label for="selector-especie">Especie</label>
+            <select id="selector-especie" required>
+                <option value="">Cargando especies…</option>
+            </select>
+
+            <label for="campo-humedad">Humedad del sustrato (porcentaje)</label>
+            <input type="number" id="campo-humedad" step="0.1" required>
+
+            <label for="campo-luz">Nivel de luz (lux)</label>
+            <input type="number" id="campo-luz" step="1" required>
+
+            <label for="campo-temperatura">Temperatura (grados Celsius)</label>
+            <input type="number" id="campo-temperatura" step="0.1" required>
+
+            <button type="submit">Consultar diagnóstico</button>
+        </form>
+
+        <section id="zona-resultado" hidden>
+            <h2>Resultado</h2>
+            <p id="estado-global"></p>
+            <ul id="lista-parametros"></ul>
+            <h3>Recomendaciones</h3>
+            <ul id="lista-recomendaciones"></ul>
+        </section>
+
+        <section id="zona-error" hidden>
+            <h2>Error</h2>
+            <p id="mensaje-error"></p>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

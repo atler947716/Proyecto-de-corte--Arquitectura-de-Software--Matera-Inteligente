@@ -1,0 +1,42 @@
+body {
+    font-family: system-ui, sans-serif;
+    max-width: 640px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    color: #222;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+input, select, button {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+button {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1b5e20;
+}
+
+#zona-error {
+    background: #ffebee;
+    border-left: 4px solid #c62828;
+    padding: 1rem;
+}
+
+#zona-resultado {
+    background: #e8f5e9;
+    border-left: 4px solid #2e7d32;
+    padding: 1rem;
+}

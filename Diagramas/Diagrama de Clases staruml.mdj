@@ -1,0 +1,1625 @@
+{
+  "_type": "Project",
+  "_id": "7d8557be-65af-4b65-819f-397d8a86d895",
+  "name": "GreenMind - Diagrama de clases",
+  "ownedElements": [
+    {
+      "_type": "UMLModel",
+      "_id": "10624577-da7d-494f-8961-6bc10a410315",
+      "_parent": {
+        "$ref": "7d8557be-65af-4b65-819f-397d8a86d895"
+      },
+      "name": "GreenMind Backend",
+      "ownedElements": [
+        {
+          "_type": "UMLClassDiagram",
+          "_id": "055ef0bd-1b8a-4412-856c-284af82e088c",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "Clases y contratos reales",
+          "visible": true,
+          "defaultDiagram": true,
+          "ownedViews": [
+            {
+              "_type": "UMLClassView",
+              "_id": "933680cd-a5c8-4ea5-820b-3ae2ac5589f6",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "db7156c7-b39b-40ca-b62c-f134a7d1e784"
+              },
+              "left": 70,
+              "top": 70,
+              "width": 260,
+              "height": 188,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#eaf4ef",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "28c77d30-86cc-4221-a77e-d542ca831474",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "84c51d5c-c319-4bab-b8ee-2734d0d1b351"
+              },
+              "left": 380,
+              "top": 70,
+              "width": 260,
+              "height": 188,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#eaf4ef",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "aff4bd6b-166c-4655-9203-46fc2157f89a",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "f4997994-5f49-4428-a139-9dc18f99b777"
+              },
+              "left": 700,
+              "top": 70,
+              "width": 260,
+              "height": 152,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#eaf4ef",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "a8141569-f490-40af-bdaf-a578d6363134",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "c42c3dcf-c5a4-42ad-8526-d740ffb22479"
+              },
+              "left": 1020,
+              "top": 70,
+              "width": 260,
+              "height": 152,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#eaf4ef",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "3ad10c9e-8998-47c5-acfc-5f36ce7e5d57",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "4688725d-f7cc-45e0-9294-075c8df47205"
+              },
+              "left": 1020,
+              "top": 270,
+              "width": 260,
+              "height": 116,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#eaf4ef",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "e1a0f49e-c264-48f8-a4ff-4070e7f6f659",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "4cd0c62f-ec60-49a0-a5ca-973fa72ef3db"
+              },
+              "left": 700,
+              "top": 270,
+              "width": 260,
+              "height": 134,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#eaf4ef",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "0081b840-217c-41c3-bc97-64aace6b54d3",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "0d37d3f9-92b2-45bb-a69a-1d209c189547"
+              },
+              "left": 380,
+              "top": 270,
+              "width": 260,
+              "height": 152,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#eaf4ef",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "62b849e0-4a11-4c15-b337-df321b919282",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "9148decf-baae-4d9c-8775-9c96dd94f355"
+              },
+              "left": 70,
+              "top": 480,
+              "width": 260,
+              "height": 188,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#eaf0fc",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "f046542e-6cb0-4cb1-ad32-cc189dad3d76",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "86ec8235-59ad-4239-ab22-7ab63e168a38"
+              },
+              "left": 380,
+              "top": 480,
+              "width": 260,
+              "height": 134,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#eaf0fc",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "23aac5c5-13a0-41d5-8a03-3597993c4215",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "2b5b832e-e0ef-499e-902d-39bdb4dc8525"
+              },
+              "left": 700,
+              "top": 480,
+              "width": 260,
+              "height": 116,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#eaf0fc",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "d2770bac-0283-4f1a-9d74-f78e44086acd",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "9369fdc8-9346-49f6-a80e-07cf19949d64"
+              },
+              "left": 1020,
+              "top": 480,
+              "width": 260,
+              "height": 116,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#fff0d6",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "95a21178-d385-47d7-82c5-46faece2ab9a",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "be65ca1b-9f9e-47f6-8125-98b3b9a55f6c"
+              },
+              "left": 70,
+              "top": 710,
+              "width": 260,
+              "height": 170,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#fff0d6",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "20d00b29-a7e1-45b4-b4d1-de22ced9ab6f",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "a5719aed-3334-4aff-92ab-4dcdc535111f"
+              },
+              "left": 380,
+              "top": 710,
+              "width": 260,
+              "height": 134,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#fff0d6",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "57d2cce4-7416-4ec5-b3d5-8d282e95b828",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "55f73245-4f06-4faf-a3e7-4da758c7332a"
+              },
+              "left": 700,
+              "top": 710,
+              "width": 260,
+              "height": 134,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#f0f1f4",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "f36f2f28-120b-475c-93b4-5fe406f2e0d1",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "6c1fedfb-6ecd-4e88-80e8-ab3f67ed2d1f"
+              },
+              "left": 1020,
+              "top": 710,
+              "width": 260,
+              "height": 152,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#f0f1f4",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "951372f2-a451-4c56-91b9-ec1e4fd25237",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "c27cf9c2-9b9d-4507-853b-1ab5147bbbc4"
+              },
+              "left": 70,
+              "top": 960,
+              "width": 260,
+              "height": 188,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#f0f1f4",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "de73bf6e-d60a-46fa-90b5-3bbb124eb46c",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "03a54fc3-49f0-4299-84dc-c66598f4eeff"
+              },
+              "left": 380,
+              "top": 960,
+              "width": 260,
+              "height": 152,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#f0f1f4",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLClassView",
+              "_id": "0f54c7f6-126b-4c98-8541-a28f180c8cc1",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "31ba77fc-d4cc-4ab0-916e-559ce253dde7"
+              },
+              "left": 700,
+              "top": 960,
+              "width": 260,
+              "height": 188,
+              "showShadow": false,
+              "suppressAttributes": false,
+              "suppressOperations": false,
+              "autoResize": false,
+              "fillColor": "#f0f1f4",
+              "lineColor": "#264d40",
+              "fontColor": "#172b25",
+              "showVisibility": true,
+              "showOperationSignature": true
+            },
+            {
+              "_type": "UMLDependencyView",
+              "_id": "fd6915e3-80bd-4e8c-b095-55402dde3216",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "3cc43d5d-e064-4f75-9dfe-86d9759308a3"
+              },
+              "tail": {
+                "$ref": "62b849e0-4a11-4c15-b337-df321b919282"
+              },
+              "head": {
+                "$ref": "95a21178-d385-47d7-82c5-46faece2ab9a"
+              },
+              "lineStyle": 1,
+              "lineColor": "#829392"
+            },
+            {
+              "_type": "UMLDependencyView",
+              "_id": "435637c8-1862-414b-8e6f-5b43a70de3d6",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "32c4c085-018b-4fbb-95d0-af9f8d19960c"
+              },
+              "tail": {
+                "$ref": "f046542e-6cb0-4cb1-ad32-cc189dad3d76"
+              },
+              "head": {
+                "$ref": "d2770bac-0283-4f1a-9d74-f78e44086acd"
+              },
+              "lineStyle": 1,
+              "lineColor": "#829392"
+            },
+            {
+              "_type": "UMLDependencyView",
+              "_id": "85ca22b9-f51c-4749-a68a-b2cc46d084d3",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "1cc23050-1963-4126-a2d0-04987d75b5ae"
+              },
+              "tail": {
+                "$ref": "f046542e-6cb0-4cb1-ad32-cc189dad3d76"
+              },
+              "head": {
+                "$ref": "e1a0f49e-c264-48f8-a4ff-4070e7f6f659"
+              },
+              "lineStyle": 1,
+              "lineColor": "#829392"
+            },
+            {
+              "_type": "UMLDependencyView",
+              "_id": "52095187-1bab-4a92-b679-05578f0d1228",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "79471d30-40c5-4e60-86a0-d710800c303a"
+              },
+              "tail": {
+                "$ref": "23aac5c5-13a0-41d5-8a03-3597993c4215"
+              },
+              "head": {
+                "$ref": "d2770bac-0283-4f1a-9d74-f78e44086acd"
+              },
+              "lineStyle": 1,
+              "lineColor": "#829392"
+            },
+            {
+              "_type": "UMLDependencyView",
+              "_id": "f4986bde-06c9-47ce-85a4-d633d2edae46",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "0c331850-09bc-4cbe-80bf-30d5da9e86b1"
+              },
+              "tail": {
+                "$ref": "57d2cce4-7416-4ec5-b3d5-8d282e95b828"
+              },
+              "head": {
+                "$ref": "d2770bac-0283-4f1a-9d74-f78e44086acd"
+              },
+              "lineStyle": 1,
+              "lineColor": "#829392"
+            },
+            {
+              "_type": "UMLDependencyView",
+              "_id": "c0e3dab2-ff7a-49a3-8a1c-29a95b2d8784",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "03672cf3-46cf-488d-b8fd-fd331bf55e9b"
+              },
+              "tail": {
+                "$ref": "f36f2f28-120b-475c-93b4-5fe406f2e0d1"
+              },
+              "head": {
+                "$ref": "d2770bac-0283-4f1a-9d74-f78e44086acd"
+              },
+              "lineStyle": 1,
+              "lineColor": "#829392"
+            },
+            {
+              "_type": "UMLDependencyView",
+              "_id": "142139f7-ecab-459c-925d-cb4ab9f77dfc",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "f9e98c4f-93c5-4085-a162-97a02a93e416"
+              },
+              "tail": {
+                "$ref": "951372f2-a451-4c56-91b9-ec1e4fd25237"
+              },
+              "head": {
+                "$ref": "95a21178-d385-47d7-82c5-46faece2ab9a"
+              },
+              "lineStyle": 1,
+              "lineColor": "#829392"
+            },
+            {
+              "_type": "UMLDependencyView",
+              "_id": "8cc136c5-3f64-4ce2-a11c-2a2cf4510da2",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "d901ca60-c43a-4c44-8806-4324dcb237f7"
+              },
+              "tail": {
+                "$ref": "de73bf6e-d60a-46fa-90b5-3bbb124eb46c"
+              },
+              "head": {
+                "$ref": "20d00b29-a7e1-45b4-b4d1-de22ced9ab6f"
+              },
+              "lineStyle": 1,
+              "lineColor": "#829392"
+            },
+            {
+              "_type": "UMLDependencyView",
+              "_id": "253e5d58-b86f-46d2-9be4-d71bdbf85ca6",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "a04235df-f527-4c99-937a-ed9c933f40c9"
+              },
+              "tail": {
+                "$ref": "e1a0f49e-c264-48f8-a4ff-4070e7f6f659"
+              },
+              "head": {
+                "$ref": "aff4bd6b-166c-4655-9203-46fc2157f89a"
+              },
+              "lineStyle": 1,
+              "lineColor": "#829392"
+            },
+            {
+              "_type": "UMLDependencyView",
+              "_id": "012af6ef-c390-4126-8fc2-5dc9ebdb6391",
+              "_parent": {
+                "$ref": "055ef0bd-1b8a-4412-856c-284af82e088c"
+              },
+              "model": {
+                "$ref": "f5362745-d4b8-4b9d-b5d5-f8f8ca1cf45b"
+              },
+              "tail": {
+                "$ref": "e1a0f49e-c264-48f8-a4ff-4070e7f6f659"
+              },
+              "head": {
+                "$ref": "a8141569-f490-40af-bdaf-a578d6363134"
+              },
+              "lineStyle": 1,
+              "lineColor": "#829392"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "db7156c7-b39b-40ca-b62c-f134a7d1e784",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "Matera",
+          "documentation": "Capa: dominio. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "7b626489-0b57-473b-96e8-8d015ce7700e",
+              "_parent": {
+                "$ref": "db7156c7-b39b-40ca-b62c-f134a7d1e784"
+              },
+              "name": "id",
+              "type": "str"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "7eeb6050-8eff-4814-9b19-bf6fb4d42a78",
+              "_parent": {
+                "$ref": "db7156c7-b39b-40ca-b62c-f134a7d1e784"
+              },
+              "name": "propietario_id",
+              "type": "str"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "355a305e-7f5a-443c-b6fa-285a3baa858e",
+              "_parent": {
+                "$ref": "db7156c7-b39b-40ca-b62c-f134a7d1e784"
+              },
+              "name": "dispositivo_id",
+              "type": "str"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "e15ebeae-85ad-4677-bdfc-272d7846b4cf",
+              "_parent": {
+                "$ref": "db7156c7-b39b-40ca-b62c-f134a7d1e784"
+              },
+              "name": "nombre",
+              "type": "str"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "34c6289d-6d88-4971-b896-3a7d05fcc294",
+              "_parent": {
+                "$ref": "db7156c7-b39b-40ca-b62c-f134a7d1e784"
+              },
+              "name": "especie",
+              "type": "str"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "a98fe625-8661-42a1-8c36-e5a78a3cc40e",
+              "_parent": {
+                "$ref": "db7156c7-b39b-40ca-b62c-f134a7d1e784"
+              },
+              "name": "activa",
+              "type": "bool"
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "c325beda-c037-488d-a073-78992a0c69b1",
+              "_parent": {
+                "$ref": "db7156c7-b39b-40ca-b62c-f134a7d1e784"
+              },
+              "name": "verificar_propietario(usuario_id)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "6f8b6816-dec5-4cfe-85b6-635e2da5d565",
+              "_parent": {
+                "$ref": "db7156c7-b39b-40ca-b62c-f134a7d1e784"
+              },
+              "name": "editar(usuario_id, nombre, especie)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "828688ae-b5b5-4f02-a2bd-348a0f888406",
+              "_parent": {
+                "$ref": "db7156c7-b39b-40ca-b62c-f134a7d1e784"
+              },
+              "name": "desvincular(usuario_id)"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "84c51d5c-c319-4bab-b8ee-2734d0d1b351",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "LecturaDispositivo",
+          "documentation": "Capa: dominio. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "dabd4032-d34c-47a8-a5b0-7ce67ab30911",
+              "_parent": {
+                "$ref": "84c51d5c-c319-4bab-b8ee-2734d0d1b351"
+              },
+              "name": "dispositivo_id",
+              "type": "str"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "2db13712-79d6-4369-9ff1-49afb38aaff8",
+              "_parent": {
+                "$ref": "84c51d5c-c319-4bab-b8ee-2734d0d1b351"
+              },
+              "name": "fecha",
+              "type": "datetime"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "3a0d8a9f-2ae9-4c58-9453-61b84f55040d",
+              "_parent": {
+                "$ref": "84c51d5c-c319-4bab-b8ee-2734d0d1b351"
+              },
+              "name": "humedad",
+              "type": "float"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "04443784-3c7f-4fe6-b30f-9f8134e18aba",
+              "_parent": {
+                "$ref": "84c51d5c-c319-4bab-b8ee-2734d0d1b351"
+              },
+              "name": "luz",
+              "type": "float"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "c0f9cd77-6ace-4816-a0a0-907cb3ba9329",
+              "_parent": {
+                "$ref": "84c51d5c-c319-4bab-b8ee-2734d0d1b351"
+              },
+              "name": "temperatura",
+              "type": "float"
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "21ddad0d-b306-4b46-b76b-d6d80478685c",
+              "_parent": {
+                "$ref": "84c51d5c-c319-4bab-b8ee-2734d0d1b351"
+              },
+              "name": "__post_init__()"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "f4997994-5f49-4428-a139-9dc18f99b777",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "Medicion",
+          "documentation": "Capa: dominio. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "1a85dbc1-f15a-4a39-81d2-4aba603ed797",
+              "_parent": {
+                "$ref": "f4997994-5f49-4428-a139-9dc18f99b777"
+              },
+              "name": "humedad",
+              "type": "float"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "d0e6a91d-6faf-489a-b17b-d2f87bdd78df",
+              "_parent": {
+                "$ref": "f4997994-5f49-4428-a139-9dc18f99b777"
+              },
+              "name": "luz",
+              "type": "float"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "1771c844-c946-4107-bc99-aa9e9129a533",
+              "_parent": {
+                "$ref": "f4997994-5f49-4428-a139-9dc18f99b777"
+              },
+              "name": "temperatura",
+              "type": "float"
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "f10c5819-5b07-4f36-a51c-fa68686f8cf5",
+              "_parent": {
+                "$ref": "f4997994-5f49-4428-a139-9dc18f99b777"
+              },
+              "name": "__post_init__()"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "c42c3dcf-c5a4-42ad-8526-d740ffb22479",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "Especie",
+          "documentation": "Capa: dominio. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "8cb5b88c-02a0-4917-b351-dd8e19b62dad",
+              "_parent": {
+                "$ref": "c42c3dcf-c5a4-42ad-8526-d740ffb22479"
+              },
+              "name": "nombre",
+              "type": "str"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "5f1d69b1-0130-4082-a5f0-f502880afd77",
+              "_parent": {
+                "$ref": "c42c3dcf-c5a4-42ad-8526-d740ffb22479"
+              },
+              "name": "rango_humedad",
+              "type": "RangoReferencia"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "253d609d-7af1-46e5-aa94-3bd592ef488e",
+              "_parent": {
+                "$ref": "c42c3dcf-c5a4-42ad-8526-d740ffb22479"
+              },
+              "name": "rango_luz",
+              "type": "RangoReferencia"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "a2ca8db6-4e57-4808-a87e-4933a2da2cb7",
+              "_parent": {
+                "$ref": "c42c3dcf-c5a4-42ad-8526-d740ffb22479"
+              },
+              "name": "rango_temperatura",
+              "type": "RangoReferencia"
+            }
+          ],
+          "operations": []
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "4688725d-f7cc-45e0-9294-075c8df47205",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "RangoReferencia",
+          "documentation": "Capa: dominio. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "d245403e-f5e3-41cd-af3f-e6011c54bfb1",
+              "_parent": {
+                "$ref": "4688725d-f7cc-45e0-9294-075c8df47205"
+              },
+              "name": "minimo",
+              "type": "float"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "877e4a95-0e4f-42f9-ba49-154542abe2a9",
+              "_parent": {
+                "$ref": "4688725d-f7cc-45e0-9294-075c8df47205"
+              },
+              "name": "maximo",
+              "type": "float"
+            }
+          ],
+          "operations": []
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "4cd0c62f-ec60-49a0-a5ca-973fa72ef3db",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "EvaluadorDePlanta",
+          "documentation": "Capa: dominio. Nombre de clase según backend GreenMind.",
+          "attributes": [],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "a7cf61e3-0de4-412d-a9f0-623aba6c96e3",
+              "_parent": {
+                "$ref": "4cd0c62f-ec60-49a0-a5ca-973fa72ef3db"
+              },
+              "name": "diagnosticar(medicion, especie)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "d6bf1d2d-b5f5-4a8c-bf0c-edac258467f9",
+              "_parent": {
+                "$ref": "4cd0c62f-ec60-49a0-a5ca-973fa72ef3db"
+              },
+              "name": "_evaluar_parametro(...)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "a9089698-cbb5-4fef-8ea2-87675fc2fb9c",
+              "_parent": {
+                "$ref": "4cd0c62f-ec60-49a0-a5ca-973fa72ef3db"
+              },
+              "name": "_agregar_estado_global(...)"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "0d37d3f9-92b2-45bb-a69a-1d209c189547",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "DiagnosticoPlanta",
+          "documentation": "Capa: dominio. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "6ac46991-e0e9-4ddc-988a-9a2268f50202",
+              "_parent": {
+                "$ref": "0d37d3f9-92b2-45bb-a69a-1d209c189547"
+              },
+              "name": "nombre_especie",
+              "type": "str"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "56acb246-5d71-4659-bbba-e9441bfc8b2f",
+              "_parent": {
+                "$ref": "0d37d3f9-92b2-45bb-a69a-1d209c189547"
+              },
+              "name": "estado_global",
+              "type": "EstadoGlobal"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "d490ab13-9e2b-4736-a05f-58f509a42d31",
+              "_parent": {
+                "$ref": "0d37d3f9-92b2-45bb-a69a-1d209c189547"
+              },
+              "name": "parametros_evaluados",
+              "type": "list"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "499be335-5be3-40d9-952b-fed50593e9f0",
+              "_parent": {
+                "$ref": "0d37d3f9-92b2-45bb-a69a-1d209c189547"
+              },
+              "name": "recomendaciones",
+              "type": "list"
+            }
+          ],
+          "operations": []
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "9148decf-baae-4d9c-8775-9c96dd94f355",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "GestionMateras",
+          "documentation": "Capa: aplicacion. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "767e61b6-fe13-4401-a8bf-25ad7d6c0ad1",
+              "_parent": {
+                "$ref": "9148decf-baae-4d9c-8775-9c96dd94f355"
+              },
+              "name": "repositorio",
+              "type": ""
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "d750410c-25b1-41e7-9c43-e8817fe01d34",
+              "_parent": {
+                "$ref": "9148decf-baae-4d9c-8775-9c96dd94f355"
+              },
+              "name": "registrar(...)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "74b85d01-d953-4da2-809f-4b4cbc335e77",
+              "_parent": {
+                "$ref": "9148decf-baae-4d9c-8775-9c96dd94f355"
+              },
+              "name": "listar(propietario_id)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "d596666d-c71b-465e-aa24-86555e20c4d4",
+              "_parent": {
+                "$ref": "9148decf-baae-4d9c-8775-9c96dd94f355"
+              },
+              "name": "obtener(propietario_id, matera_id)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "fb8b628f-c2f4-441d-8a0b-9907b28aecdd",
+              "_parent": {
+                "$ref": "9148decf-baae-4d9c-8775-9c96dd94f355"
+              },
+              "name": "editar(...)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "72685c4b-8619-4791-8bc2-d69773586d1e",
+              "_parent": {
+                "$ref": "9148decf-baae-4d9c-8775-9c96dd94f355"
+              },
+              "name": "desvincular(...)"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "86ec8235-59ad-4239-ab22-7ab63e168a38",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "DiagnosticarPlantaCasoDeUso",
+          "documentation": "Capa: aplicacion. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "a9aed972-65b7-426f-812a-6b72ac4fde3a",
+              "_parent": {
+                "$ref": "86ec8235-59ad-4239-ab22-7ab63e168a38"
+              },
+              "name": "proveedor_de_rangos",
+              "type": ""
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "a31e3a97-2b12-44d7-89b1-a8ba2a70706a",
+              "_parent": {
+                "$ref": "86ec8235-59ad-4239-ab22-7ab63e168a38"
+              },
+              "name": "evaluador_de_planta",
+              "type": ""
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "5c499455-6246-4049-bec1-57a0cbe94359",
+              "_parent": {
+                "$ref": "86ec8235-59ad-4239-ab22-7ab63e168a38"
+              },
+              "name": "ejecutar(nombre_especie, medicion)"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "2b5b832e-e0ef-499e-902d-39bdb4dc8525",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "ListarEspeciesCasoDeUso",
+          "documentation": "Capa: aplicacion. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "7e1f2d96-2593-4013-893a-80f73b2235a4",
+              "_parent": {
+                "$ref": "2b5b832e-e0ef-499e-902d-39bdb4dc8525"
+              },
+              "name": "proveedor_de_rangos",
+              "type": ""
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "9f5db9c5-f6d0-4f2c-98fd-fa650e74b9a9",
+              "_parent": {
+                "$ref": "2b5b832e-e0ef-499e-902d-39bdb4dc8525"
+              },
+              "name": "ejecutar()"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "9369fdc8-9346-49f6-a80e-07cf19949d64",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "I_ProveedorDeRangos",
+          "documentation": "Capa: puerto. Nombre de clase según backend GreenMind.",
+          "attributes": [],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "efdcff67-6ed9-4f3e-996c-aaabd5ba5036",
+              "_parent": {
+                "$ref": "9369fdc8-9346-49f6-a80e-07cf19949d64"
+              },
+              "name": "obtener_especie_por_nombre(nombre_especie)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "fbd4dc47-6c82-44e4-8f34-bab50222db7c",
+              "_parent": {
+                "$ref": "9369fdc8-9346-49f6-a80e-07cf19949d64"
+              },
+              "name": "obtener_todas_las_especies()"
+            }
+          ],
+          "isAbstract": true
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "be65ca1b-9f9e-47f6-8125-98b3b9a55f6c",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "PuertoRepositorioMateras",
+          "documentation": "Capa: puerto. Nombre de clase según backend GreenMind.",
+          "attributes": [],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "eb76a7c2-093e-456c-9d00-c22919cf72d8",
+              "_parent": {
+                "$ref": "be65ca1b-9f9e-47f6-8125-98b3b9a55f6c"
+              },
+              "name": "guardar(matera)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "edb44359-1c45-4da9-ad07-6c97560d6cbd",
+              "_parent": {
+                "$ref": "be65ca1b-9f9e-47f6-8125-98b3b9a55f6c"
+              },
+              "name": "obtener_por_id(matera_id)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "eb984898-9756-4bcf-b39f-127353203864",
+              "_parent": {
+                "$ref": "be65ca1b-9f9e-47f6-8125-98b3b9a55f6c"
+              },
+              "name": "obtener_por_dispositivo(id)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "2f9a6841-3686-4d9b-88c0-46898ed00e4a",
+              "_parent": {
+                "$ref": "be65ca1b-9f9e-47f6-8125-98b3b9a55f6c"
+              },
+              "name": "listar_por_propietario(id)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "6c6d9153-702f-4ceb-a2f9-a2638179bb14",
+              "_parent": {
+                "$ref": "be65ca1b-9f9e-47f6-8125-98b3b9a55f6c"
+              },
+              "name": "actualizar(matera)"
+            }
+          ],
+          "isAbstract": true
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "a5719aed-3334-4aff-92ab-4dcdc535111f",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "PuertoRepositorioLecturas",
+          "documentation": "Capa: puerto. Nombre de clase según backend GreenMind.",
+          "attributes": [],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "ee5859ec-2130-46fb-b871-3b17ee8931ab",
+              "_parent": {
+                "$ref": "a5719aed-3334-4aff-92ab-4dcdc535111f"
+              },
+              "name": "guardar(matera_id, lectura)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "81b62191-7423-4238-b33e-c7fa5fb6b297",
+              "_parent": {
+                "$ref": "a5719aed-3334-4aff-92ab-4dcdc535111f"
+              },
+              "name": "ultima(matera_id)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "c5ccbe17-3540-408d-b8a7-8953603073eb",
+              "_parent": {
+                "$ref": "a5719aed-3334-4aff-92ab-4dcdc535111f"
+              },
+              "name": "historial(matera_id)"
+            }
+          ],
+          "isAbstract": true
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "55f73245-4f06-4faf-a3e7-4da758c7332a",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "ProveedorCsvDeRangos",
+          "documentation": "Capa: infraestructura. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "1475983a-54b4-45f4-8e53-ef593d8c9bfb",
+              "_parent": {
+                "$ref": "55f73245-4f06-4faf-a3e7-4da758c7332a"
+              },
+              "name": "ruta_archivo",
+              "type": ""
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "f38e7ef9-c312-4506-84f0-ee4619afc3ee",
+              "_parent": {
+                "$ref": "55f73245-4f06-4faf-a3e7-4da758c7332a"
+              },
+              "name": "obtener_especie_por_nombre(nombre_especie)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "9a78f5af-c020-490d-8b26-14aa9487a731",
+              "_parent": {
+                "$ref": "55f73245-4f06-4faf-a3e7-4da758c7332a"
+              },
+              "name": "obtener_todas_las_especies()"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "6c1fedfb-6ecd-4e88-80e8-ab3f67ed2d1f",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "ProveedorSqliteDeRangos",
+          "documentation": "Capa: infraestructura. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "7c75f06a-a2c9-4409-9005-c6f06b70d5d7",
+              "_parent": {
+                "$ref": "6c1fedfb-6ecd-4e88-80e8-ab3f67ed2d1f"
+              },
+              "name": "ruta_db",
+              "type": ""
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "8f630a1f-db07-4d05-89c4-7fe0ddbbc1cf",
+              "_parent": {
+                "$ref": "6c1fedfb-6ecd-4e88-80e8-ab3f67ed2d1f"
+              },
+              "name": "ruta_csv",
+              "type": ""
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "f8fee2da-03c2-4d0f-be13-0d923fc0bc08",
+              "_parent": {
+                "$ref": "6c1fedfb-6ecd-4e88-80e8-ab3f67ed2d1f"
+              },
+              "name": "obtener_especie_por_nombre(nombre_especie)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "8a556f4f-21ea-46eb-9af7-a7a59ca32187",
+              "_parent": {
+                "$ref": "6c1fedfb-6ecd-4e88-80e8-ab3f67ed2d1f"
+              },
+              "name": "obtener_todas_las_especies()"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "c27cf9c2-9b9d-4507-853b-1ab5147bbbc4",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "RepositorioMaterasSQLite",
+          "documentation": "Capa: infraestructura. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "f3eeffec-795f-4495-a263-2a3071231281",
+              "_parent": {
+                "$ref": "c27cf9c2-9b9d-4507-853b-1ab5147bbbc4"
+              },
+              "name": "conexion",
+              "type": ""
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "a2fec092-f78b-42e6-ae99-3041ec7b712a",
+              "_parent": {
+                "$ref": "c27cf9c2-9b9d-4507-853b-1ab5147bbbc4"
+              },
+              "name": "guardar(matera)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "383ab93b-c059-480b-a5b5-6c43c6275010",
+              "_parent": {
+                "$ref": "c27cf9c2-9b9d-4507-853b-1ab5147bbbc4"
+              },
+              "name": "obtener_por_id(id)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "c998b3c4-29cd-4c27-92a2-1c096a397e47",
+              "_parent": {
+                "$ref": "c27cf9c2-9b9d-4507-853b-1ab5147bbbc4"
+              },
+              "name": "obtener_por_dispositivo(id)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "a90f2763-aa68-48f9-8f60-aa5e31f1c7f5",
+              "_parent": {
+                "$ref": "c27cf9c2-9b9d-4507-853b-1ab5147bbbc4"
+              },
+              "name": "listar_por_propietario(id)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "ac93affe-ada9-4b0f-a824-1bc4fa47e4a8",
+              "_parent": {
+                "$ref": "c27cf9c2-9b9d-4507-853b-1ab5147bbbc4"
+              },
+              "name": "actualizar(matera)"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "03a54fc3-49f0-4299-84dc-c66598f4eeff",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "RepositorioLecturasSQLite",
+          "documentation": "Capa: infraestructura. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "8a8a8e34-da95-48d7-ac0b-c1ee249aff9e",
+              "_parent": {
+                "$ref": "03a54fc3-49f0-4299-84dc-c66598f4eeff"
+              },
+              "name": "conexion",
+              "type": ""
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "c659c453-d7e4-4390-ba6b-6a3c063179b2",
+              "_parent": {
+                "$ref": "03a54fc3-49f0-4299-84dc-c66598f4eeff"
+              },
+              "name": "guardar(matera_id, lectura)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "4ec919df-3c35-413f-9598-befbb4205673",
+              "_parent": {
+                "$ref": "03a54fc3-49f0-4299-84dc-c66598f4eeff"
+              },
+              "name": "ultima(matera_id)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "93b9872a-bef2-480f-8914-b0531ad97794",
+              "_parent": {
+                "$ref": "03a54fc3-49f0-4299-84dc-c66598f4eeff"
+              },
+              "name": "historial(matera_id)"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "31ba77fc-d4cc-4ab0-916e-559ce253dde7",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "name": "RepositorioUsuariosSQLite",
+          "documentation": "Capa: infraestructura. Nombre de clase según backend GreenMind.",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "0e21fa47-8e4e-46bf-880b-8a48447403b5",
+              "_parent": {
+                "$ref": "31ba77fc-d4cc-4ab0-916e-559ce253dde7"
+              },
+              "name": "conexion",
+              "type": ""
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "f8f8e466-464f-4c00-a2dc-6510ccb77a81",
+              "_parent": {
+                "$ref": "31ba77fc-d4cc-4ab0-916e-559ce253dde7"
+              },
+              "name": "crear(...)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "10d816ae-3425-48b4-9255-600298c3abd0",
+              "_parent": {
+                "$ref": "31ba77fc-d4cc-4ab0-916e-559ce253dde7"
+              },
+              "name": "obtener_por_id(id)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "377d9dc8-1249-48d5-a22c-fb4457cc1501",
+              "_parent": {
+                "$ref": "31ba77fc-d4cc-4ab0-916e-559ce253dde7"
+              },
+              "name": "obtener_por_correo(correo)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "a2969a28-44eb-4a7f-bc11-9d1940a7ddd7",
+              "_parent": {
+                "$ref": "31ba77fc-d4cc-4ab0-916e-559ce253dde7"
+              },
+              "name": "actualizar_nombre(...)"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "e2408d35-f668-4e5b-add2-b7e06d399185",
+              "_parent": {
+                "$ref": "31ba77fc-d4cc-4ab0-916e-559ce253dde7"
+              },
+              "name": "eliminar_cuenta_y_datos(...)"
+            }
+          ]
+        },
+        {
+          "_type": "UMLDependency",
+          "_id": "3cc43d5d-e064-4f75-9dfe-86d9759308a3",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "source": {
+            "$ref": "9148decf-baae-4d9c-8775-9c96dd94f355"
+          },
+          "target": {
+            "$ref": "be65ca1b-9f9e-47f6-8125-98b3b9a55f6c"
+          }
+        },
+        {
+          "_type": "UMLDependency",
+          "_id": "32c4c085-018b-4fbb-95d0-af9f8d19960c",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "source": {
+            "$ref": "86ec8235-59ad-4239-ab22-7ab63e168a38"
+          },
+          "target": {
+            "$ref": "9369fdc8-9346-49f6-a80e-07cf19949d64"
+          }
+        },
+        {
+          "_type": "UMLDependency",
+          "_id": "1cc23050-1963-4126-a2d0-04987d75b5ae",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "source": {
+            "$ref": "86ec8235-59ad-4239-ab22-7ab63e168a38"
+          },
+          "target": {
+            "$ref": "4cd0c62f-ec60-49a0-a5ca-973fa72ef3db"
+          }
+        },
+        {
+          "_type": "UMLDependency",
+          "_id": "79471d30-40c5-4e60-86a0-d710800c303a",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "source": {
+            "$ref": "2b5b832e-e0ef-499e-902d-39bdb4dc8525"
+          },
+          "target": {
+            "$ref": "9369fdc8-9346-49f6-a80e-07cf19949d64"
+          }
+        },
+        {
+          "_type": "UMLDependency",
+          "_id": "0c331850-09bc-4cbe-80bf-30d5da9e86b1",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "source": {
+            "$ref": "55f73245-4f06-4faf-a3e7-4da758c7332a"
+          },
+          "target": {
+            "$ref": "9369fdc8-9346-49f6-a80e-07cf19949d64"
+          }
+        },
+        {
+          "_type": "UMLDependency",
+          "_id": "03672cf3-46cf-488d-b8fd-fd331bf55e9b",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "source": {
+            "$ref": "6c1fedfb-6ecd-4e88-80e8-ab3f67ed2d1f"
+          },
+          "target": {
+            "$ref": "9369fdc8-9346-49f6-a80e-07cf19949d64"
+          }
+        },
+        {
+          "_type": "UMLDependency",
+          "_id": "f9e98c4f-93c5-4085-a162-97a02a93e416",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "source": {
+            "$ref": "c27cf9c2-9b9d-4507-853b-1ab5147bbbc4"
+          },
+          "target": {
+            "$ref": "be65ca1b-9f9e-47f6-8125-98b3b9a55f6c"
+          }
+        },
+        {
+          "_type": "UMLDependency",
+          "_id": "d901ca60-c43a-4c44-8806-4324dcb237f7",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "source": {
+            "$ref": "03a54fc3-49f0-4299-84dc-c66598f4eeff"
+          },
+          "target": {
+            "$ref": "a5719aed-3334-4aff-92ab-4dcdc535111f"
+          }
+        },
+        {
+          "_type": "UMLDependency",
+          "_id": "a04235df-f527-4c99-937a-ed9c933f40c9",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "source": {
+            "$ref": "4cd0c62f-ec60-49a0-a5ca-973fa72ef3db"
+          },
+          "target": {
+            "$ref": "f4997994-5f49-4428-a139-9dc18f99b777"
+          }
+        },
+        {
+          "_type": "UMLDependency",
+          "_id": "f5362745-d4b8-4b9d-b5d5-f8f8ca1cf45b",
+          "_parent": {
+            "$ref": "10624577-da7d-494f-8961-6bc10a410315"
+          },
+          "source": {
+            "$ref": "4cd0c62f-ec60-49a0-a5ca-973fa72ef3db"
+          },
+          "target": {
+            "$ref": "c42c3dcf-c5a4-42ad-8526-d740ffb22479"
+          }
+        }
+      ]
+    }
+  ]
+}

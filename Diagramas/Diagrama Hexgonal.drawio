@@ -1,0 +1,37 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Arquitectura hexagonal" id="yMBEziLluW-HBcazt5kS">
+    <mxGraphModel dx="2275" dy="1444" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="QfgS3B5hgecWtx8GZcvG-10" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" value="" vertex="1">
+          <mxGeometry height="720" width="831.41" x="439.3" y="171" as="geometry" />
+        </mxCell>
+        <mxCell id="QfgS3B5hgecWtx8GZcvG-1" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=27;fontStyle=1;fontColor=#163e31;" value="GREENMIND | HEXAGONAL: 6 AREAS" vertex="1">
+          <mxGeometry height="60" width="760" x="525" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="QfgS3B5hgecWtx8GZcvG-2" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#e5f2e9;strokeColor=#729786;fontColor=#173b30;fontSize=17;fontStyle=1;" value="1 · ENTRADA REST&#xa;Frontend + API JSON&#xa;Controlador.py" vertex="1">
+          <mxGeometry height="190" width="340" x="685" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="QfgS3B5hgecWtx8GZcvG-3" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#e4effb;strokeColor=#729786;fontColor=#173b30;fontSize=17;fontStyle=1;" value="2 · DISPOSITIVOS&#xa;ESP32 simulado&#xa;ApiMateras.py" vertex="1">
+          <mxGeometry height="190" width="340" x="1085" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="QfgS3B5hgecWtx8GZcvG-4" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f4ecfb;strokeColor=#729786;fontColor=#173b30;fontSize=17;fontStyle=1;" value="3 · PUERTOS&#xa;Interfaces del dominio&#xa;Repositorios.py" vertex="1">
+          <mxGeometry height="190" width="340" x="1085" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="QfgS3B5hgecWtx8GZcvG-5" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff0db;strokeColor=#729786;fontColor=#173b30;fontSize=17;fontStyle=1;" value="4 · SALIDA CSV&#xa;ProveedorCsvDeRangos&#xa;especies.csv" vertex="1">
+          <mxGeometry height="190" width="340" x="685" y="765" as="geometry" />
+        </mxCell>
+        <mxCell id="QfgS3B5hgecWtx8GZcvG-6" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#e8f0f3;strokeColor=#729786;fontColor=#173b30;fontSize=17;fontStyle=1;" value="5 · SALIDA SQL&#xa;ProveedorSqliteDeRangos&#xa;RepositorioSQLite" vertex="1">
+          <mxGeometry height="190" width="340" x="270" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="QfgS3B5hgecWtx8GZcvG-7" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fceaea;strokeColor=#729786;fontColor=#173b30;fontSize=17;fontStyle=1;" value="6 · COMPOSICIÓN&#xa;crear_aplicacion()&#xa;App.py + JWT" vertex="1">
+          <mxGeometry height="190" width="340" x="270" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="QfgS3B5hgecWtx8GZcvG-8" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#153e31;strokeColor=#2c7555;fontColor=#ffffff;fontSize=18;fontStyle=1;" value="DOMINIO&#xa;Matera | Medicion | Especie&#xa;EvaluadorDePlanta" vertex="1">
+          <mxGeometry height="220" width="320" x="695" y="421" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

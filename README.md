@@ -331,13 +331,4 @@ Los endpoints protegidos requieren `Authorization: Bearer <JWT>` con el alcance 
 - Eliminar una cuenta de la aplicación no elimina copias de seguridad externas.
 - El sistema actualmente usa lecturas simuladas y **no** necesita hardware real.
 
-## 12. Para entregar y sustentar el corte 2
-
-Asegúrate de poder demostrar en otro equipo: registro/login, propiedad y aislamiento de materas, JWT de usuario/dispositivo, lecturas del simulador en vivo, rechazo de datos inválidos, historial persistente, actualización del frontend, cambio CSV/BD por configuración y pruebas unitarias del dominio.
-
-El **documento de arquitectura** debe ser redactado y comprendido por los integrantes del equipo conforme al enunciado; no se sustituye por este README.
-
-Los rangos de cada especie fueron tomados de fichas de jardinería y botánica
-citadas en la columna `fuente` del archivo
-`backend/infraestructura/recursos/especies.csv`.git add README.md
-git commit -m "documentacion: instrucciones de ejecucion"
+: instrucciones de ejecucion"

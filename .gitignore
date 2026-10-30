@@ -7,3 +7,15 @@ node_modules/
 *.sqlite3
 *.sqlite3-journal
 backend/data/
+
+# GreenMind - archivos locales
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+tokens_dispositivos.json
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+*.bak_*

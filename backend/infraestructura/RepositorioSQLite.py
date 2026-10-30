@@ -131,6 +131,48 @@ class RepositorioUsuariosSQLite:
         return dict(fila) if fila else None
 
 
+    def actualizar_nombre(self, usuario_id, nombre):
+        with self.conexion.conectar() as db:
+            resultado = db.execute(
+                "UPDATE usuarios SET nombre = ? WHERE id = ?",
+                (nombre, usuario_id)
+            )
+            return resultado.rowcount == 1
+
+
+    def eliminar_cuenta_y_datos(self, usuario_id):
+        """Elimina cuenta y registros asociados atomicamente."""
+        with self.conexion.conectar() as db:
+            existe = db.execute(
+                "SELECT 1 FROM usuarios WHERE id = ?",
+                (usuario_id,)
+            ).fetchone()
+
+            if existe is None:
+                return False
+
+            # Incluye historiales de materas desvinculadas.
+            db.execute("""
+                DELETE FROM lecturas
+                WHERE matera_id IN (
+                    SELECT id FROM materas
+                    WHERE propietario_id = ?
+                )
+            """, (usuario_id,))
+
+            db.execute(
+                "DELETE FROM materas WHERE propietario_id = ?",
+                (usuario_id,)
+            )
+
+            db.execute(
+                "DELETE FROM usuarios WHERE id = ?",
+                (usuario_id,)
+            )
+
+            return True
+
+
 class RepositorioMaterasSQLite(PuertoRepositorioMateras):
     def __init__(self, conexion):
         self.conexion = conexion

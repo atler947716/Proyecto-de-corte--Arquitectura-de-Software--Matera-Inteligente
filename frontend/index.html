@@ -198,6 +198,56 @@
         <button type="submit">Guardar perfil</button>
       </form>
       <div class="acciones"><button type="button" id="perfil-cambiar-clave">Cambiar contraseña</button></div>
+    
+
+      <div class="acciones">
+        <button
+          id="abrir-eliminar-cuenta"
+          type="button"
+          style="background:#792c31;color:white">
+          Eliminar mi cuenta y todos mis datos
+        </button>
+      </div>
+
+      <div id="zona-eliminar-cuenta" hidden>
+        <h3>Eliminar cuenta definitivamente</h3>
+
+        <p>
+          Se eliminaran tu cuenta, tus materas y todos
+          sus historiales de mediciones.
+          Esta accion es irreversible.
+        </p>
+
+        <form id="formulario-eliminar-cuenta" class="formulario">
+          <label>
+            Contrasena actual
+            <input
+              id="eliminar-clave"
+              type="password"
+              autocomplete="current-password"
+              required>
+          </label>
+
+          <label>
+            <input
+              id="eliminar-confirmacion"
+              type="checkbox"
+              required>
+            Entiendo que todos mis datos seran eliminados.
+          </label>
+
+          <div class="acciones">
+            <button type="submit"
+                    style="background:#792c31;color:white">
+              Eliminar definitivamente
+            </button>
+            <button id="cancelar-eliminar-cuenta" type="button">
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+
     </section>
   </section>
   <p id="mensaje" role="status" aria-live="polite"></p>

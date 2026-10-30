@@ -61,6 +61,7 @@ function pantalla(id) {
 
     if (id === "inicio") cargarResumen();
     if (id === "materas") cargarPlantas();
+    if (id === "perfil") cargarPerfil();
 }
 
 function pantallaAuth(id) {
@@ -134,7 +135,8 @@ async function registrarUsuario(evento) {
         return;
     }
 
-    const datos = new FormData(evento.currentTarget);
+    const formulario = evento.currentTarget;
+    const datos = new FormData(formulario);
 
     try {
         await peticion("/api/auth/register", "POST", {
@@ -143,7 +145,7 @@ async function registrarUsuario(evento) {
             contrasena: datos.get("contrasena")
         });
 
-        evento.currentTarget.reset();
+        formulario.reset();
         pantallaAuth("vista-login");
         aviso("Cuenta registrada. Inicia sesión.");
 
@@ -216,7 +218,9 @@ async function cargarPlantas() {
 async function registrarPlanta(evento) {
     evento.preventDefault();
 
-    const datos = new FormData(evento.currentTarget);
+    const formulario = evento.currentTarget;
+    const datos = new FormData(formulario);
+    
     const dispositivo = $("identificador-registro").value.trim();
 
     if (!dispositivo) {
@@ -235,7 +239,7 @@ async function registrarPlanta(evento) {
             }
         );
 
-        evento.currentTarget.reset();
+        formulario.reset();
         $("identificador-registro").value = "";
         $("qr-manual").value = "";
 
@@ -410,35 +414,198 @@ async function desvincular() {
 }
 
 // RESUMEN
+
 async function cargarResumen() {
     if (!token) return;
 
     try {
-        await cargarPlantas();
+        // Consultar las materas del usuario autenticado.
+        const resultado = await peticion("/api/v1/plantas");
+        plantas = resultado.plantas || [];
 
-        $("total-bien").textContent = "—";
-        $("total-regular").textContent = "—";
-        $("total-mal").textContent = "—";
-        $("total-sin-datos").textContent = "—";
+        const contadores = {
+            bien: 0,
+            regular: 0,
+            mal: 0,
+            sinDatos: 0
+        };
 
-        $("alertas-inicio").textContent =
-            "Consulta cada planta para ver su diagnóstico.";
+        const alertas = [];
+
+        // Consultar los diagnósticos reales de todas las materas.
+        const resultados = await Promise.allSettled(
+            plantas.map(planta =>
+                peticion(
+                    `/api/v1/plantas/${encodeURIComponent(planta.id)}/estado`
+                )
+            )
+        );
+
+        resultados.forEach((resultado, indice) => {
+            const planta = plantas[indice];
+
+            if (resultado.status === "rejected") {
+                contadores.sinDatos++;
+                return;
+            }
+
+            const diagnostico = resultado.value.diagnostico;
+
+            if (!diagnostico) {
+                contadores.sinDatos++;
+                return;
+            }
+
+            switch (diagnostico.estado) {
+                case "SALUDABLE":
+                    contadores.bien++;
+                    break;
+
+                case "EN RIESGO":
+                    contadores.regular++;
+                    break;
+
+                case "CRITICO":
+                    contadores.mal++;
+                    break;
+
+                default:
+                    contadores.sinDatos++;
+            }
+
+            if (diagnostico.estado !== "SALUDABLE") {
+                alertas.push(
+                    `${planta.nombre}: ${diagnostico.estado}`
+                );
+            }
+        });
+
+        // Actualizar los cuatro indicadores del Inicio.
+        $("total-bien").textContent = contadores.bien;
+        $("total-regular").textContent = contadores.regular;
+        $("total-mal").textContent = contadores.mal;
+        $("total-sin-datos").textContent = contadores.sinDatos;
+
+        // Mostrar alertas reales.
+        $("alertas-inicio").textContent = alertas.length
+            ? alertas.join(" | ")
+            : "No hay alertas activas.";
+
         $("cambios-inicio").textContent =
             `${plantas.length} materas registradas.`;
+
     } catch (error) {
-        aviso(error.message, true);
+        aviso("Error al cargar el resumen: " + error.message, true);
     }
 }
+
+
 
 function iniciarActualizacion() {
     clearInterval(intervalo);
 
     intervalo = setInterval(() => {
         if (!token) return;
+
         if (!$("detalle").hidden && seleccionada) {
             cargarDetalle();
         }
+
+        if (!$("inicio").hidden) {
+            cargarResumen();
+        }
     }, 5000);
+}
+
+
+
+async function cargarPerfil() {
+    if (!token) return;
+
+    try {
+        const datos = await peticion("/api/auth/perfil");
+
+        usuario = datos;
+        $("perfil-nombre").value = datos.nombre;
+        $("perfil-correo").value = datos.correo;
+
+    } catch (error) {
+        aviso("Error al cargar perfil: " + error.message, true);
+    }
+}
+
+async function guardarPerfil(evento) {
+    evento.preventDefault();
+
+    const nombre = $("perfil-nombre").value.trim();
+
+    if (nombre.length < 2 || nombre.length > 100) {
+        aviso("El nombre debe tener entre 2 y 100 caracteres.", true);
+        return;
+    }
+
+    try {
+        const resultado = await peticion(
+            "/api/auth/perfil",
+            "PATCH",
+            { nombre }
+        );
+
+        usuario = resultado.usuario;
+
+        $("perfil-nombre").value = usuario.nombre;
+        $("perfil-correo").value = usuario.correo;
+
+        aviso("Perfil actualizado correctamente.");
+
+    } catch (error) {
+        aviso("Error al guardar perfil: " + error.message, true);
+    }
+}
+
+async function eliminarCuenta(evento) {
+    evento.preventDefault();
+
+    if (!$("eliminar-confirmacion").checked) {
+        aviso("Confirma la eliminacion.", true);
+        return;
+    }
+
+    const clave = $("eliminar-clave").value;
+
+    const confirmado = window.confirm(
+        "Eliminar permanentemente tu cuenta, " +
+        "todas tus materas y sus historiales? " +
+        "Esta accion NO se puede deshacer."
+    );
+
+    if (!confirmado) return;
+
+    const boton = evento.currentTarget.querySelector(
+        'button[type="submit"]'
+    );
+
+    boton.disabled = true;
+
+    try {
+        await peticion(
+            "/api/auth/perfil",
+            "DELETE",
+            { contrasena: clave }
+        );
+
+        cerrarSesion();
+
+        $("formulario-eliminar-cuenta").reset();
+        $("zona-eliminar-cuenta").hidden = true;
+
+        aviso("Cuenta y datos eliminados permanentemente.");
+
+    } catch (error) {
+        aviso("Error al eliminar cuenta: " + error.message, true);
+    } finally {
+        boton.disabled = false;
+    }
 }
 
 // EVENTOS
@@ -464,6 +631,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     $("login").addEventListener("submit", iniciarSesion);
     $("registro").addEventListener("submit", registrarUsuario);
+
+    $("editar-perfil").addEventListener(
+        "submit", guardarPerfil
+    );
+
+    $("abrir-eliminar-cuenta").addEventListener("click", () => {
+        $("zona-eliminar-cuenta").hidden = false;
+    });
+
+    $("cancelar-eliminar-cuenta").addEventListener("click", () => {
+        $("zona-eliminar-cuenta").hidden = true;
+        $("formulario-eliminar-cuenta").reset();
+    });
+
+    $("formulario-eliminar-cuenta").addEventListener(
+        "submit", eliminarCuenta
+    );
+
     $("salir").addEventListener("click", cerrarSesion);
     $("crear").addEventListener("submit", registrarPlanta);
 

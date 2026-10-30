@@ -75,6 +75,10 @@ def crear_api_materas(usuarios, materas, lecturas, diagnosticar, secreto):
                 if not isinstance(sujeto, str) or not sujeto:
                     return fallo("Identidad inválida.", 401)
 
+                if alcance == "user":
+                    if usuarios.obtener_por_id(sujeto) is None:
+                        return fallo("La cuenta ya no existe.", 401)
+
                 return funcion(sujeto, *args, **kwargs)
             return protegida
         return decorador
@@ -141,6 +145,77 @@ def crear_api_materas(usuarios, materas, lecturas, diagnosticar, secreto):
             }
         })
 
+
+    @bp.get("/api/auth/perfil")
+    @requiere("user")
+    def obtener_perfil(usuario_id):
+        usuario = usuarios.obtener_por_id(usuario_id)
+
+        if usuario is None:
+            return fallo("Usuario no encontrado.", 404)
+
+        return jsonify({
+            "id": usuario["id"],
+            "nombre": usuario["nombre"],
+            "correo": usuario["correo"]
+        }), 200
+
+
+    @bp.patch("/api/auth/perfil")
+    @requiere("user")
+    def actualizar_perfil(usuario_id):
+        datos = cuerpo()
+        nombre = datos.get("nombre")
+
+        if not isinstance(nombre, str):
+            return fallo("El nombre debe ser texto.", 400)
+
+        nombre = nombre.strip()
+
+        if not 2 <= len(nombre) <= 100:
+            return fallo(
+                "El nombre debe tener entre 2 y 100 caracteres.",
+                400
+            )
+
+        if not usuarios.actualizar_nombre(usuario_id, nombre):
+            return fallo("Usuario no encontrado.", 404)
+
+        usuario = usuarios.obtener_por_id(usuario_id)
+
+        return jsonify({
+            "mensaje": "Perfil actualizado correctamente.",
+            "usuario": {
+                "id": usuario["id"],
+                "nombre": usuario["nombre"],
+                "correo": usuario["correo"]
+            }
+        }), 200
+
+
+    @bp.delete("/api/auth/perfil")
+    @requiere("user")
+    def eliminar_perfil(usuario_id):
+        usuario = usuarios.obtener_por_id(usuario_id)
+
+        if usuario is None:
+            return fallo("Usuario no encontrado.", 404)
+
+        datos = cuerpo()
+        clave = datos.get("contrasena")
+
+        if not isinstance(clave, str) or not check_password_hash(
+            usuario["password_hash"], clave
+        ):
+            return fallo("Contrasena incorrecta.", 403)
+
+        if not usuarios.eliminar_cuenta_y_datos(usuario_id):
+            return fallo("No se pudo eliminar la cuenta.", 404)
+
+        return jsonify({
+            "mensaje": "Cuenta y datos eliminados permanentemente."
+        }), 200
+
     @bp.get("/api/v1/plantas")
     @requiere("user")
     def listar(usuario_id):
@@ -177,7 +252,24 @@ def crear_api_materas(usuarios, materas, lecturas, diagnosticar, secreto):
                 dispositivo, "readings:write", 30
             )
         }), 201
+        
+    @bp.post("/api/v1/plantas/<planta_id>/credencial")
+    @requiere("user")
+    def credencial_dispositivo(usuario_id, planta_id):
+        try:
+            matera = gestion.obtener(usuario_id, planta_id)
+        except (MateraNoEncontrada, AccesoNoAutorizado) as exc:
+            return error_gestion(exc)
 
+        return jsonify({
+            "dispositivo": matera.dispositivo_id,
+            "token_dispositivo": token(
+                matera.dispositivo_id,
+                "readings:write",
+                1
+            )
+        }), 200
+        
     @bp.patch("/api/v1/plantas/<planta_id>")
     @requiere("user")
     def editar(usuario_id, planta_id):

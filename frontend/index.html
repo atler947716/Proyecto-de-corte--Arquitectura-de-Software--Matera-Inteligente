@@ -203,37 +203,6 @@
   <p id="mensaje" role="status" aria-live="polite"></p>
 </main>
 <script src="script.js"></script>
-<script>
-  // Navegación visual compatible con el script.js existente.
-  (() => {
-    const pantallas = ["inicio", "materas", "registrar-planta", "detalle", "perfil"];
-    function mostrar(id) {
-      if (!pantallas.includes(id)) return;
-      for (const nombre of pantallas) document.getElementById(nombre).hidden = nombre !== id;
-    }
-    document.querySelectorAll("[data-pantalla]").forEach(b => b.addEventListener("click", () => mostrar(b.dataset.pantalla)));
-    const authVistas = ["vista-login", "vista-registro", "vista-recuperar", "vista-cambio-clave"];
-    function mostrarAuth(id) {
-      if (!authVistas.includes(id)) return;
-      authVistas.forEach(nombre => document.getElementById(nombre).hidden = nombre !== id);
-    }
-    document.querySelectorAll("[data-auth-vista]").forEach(b => b.addEventListener("click", () => mostrarAuth(b.dataset.authVista)));
-    document.querySelectorAll(".alternar-clave").forEach(c => c.addEventListener("change", () => {
-      c.dataset.objetivo.split(",").forEach(id => { const e=document.getElementById(id); if(e)e.type=c.checked?"text":"password"; });
-    }));
-    const listado = document.getElementById("plantas");
-    listado.addEventListener("click", e => { if(e.target.closest("button")) mostrar("detalle"); });
-    const alta = document.getElementById("crear");
-    alta.addEventListener("submit", () => { setTimeout(() => { if(!document.getElementById("panel").hidden) mostrar("materas"); }, 800); });
-    const sesion = document.getElementById("login");
-    sesion.addEventListener("submit", () => { setTimeout(() => { if(!document.getElementById("panel").hidden) mostrar("inicio"); }, 800); });
-    function alternar(id, visible){document.getElementById(id).hidden=!visible;}
-    document.getElementById("abrir-edicion").addEventListener("click", () => alternar("editar-planta",true));
-    document.getElementById("cancelar-edicion").addEventListener("click", () => alternar("editar-planta",false));
-    document.getElementById("abrir-desvinculacion").addEventListener("click", () => alternar("confirmar-desvinculacion",true));
-    document.getElementById("cancelar-eliminacion").addEventListener("click", () => alternar("confirmar-desvinculacion",false));
-    document.getElementById("perfil-cambiar-clave").addEventListener("click", () => {document.getElementById("panel").hidden=true;document.getElementById("auth").hidden=false;mostrarAuth("vista-cambio-clave");});
-  })();
-</script>
+
 </body>
 </html>

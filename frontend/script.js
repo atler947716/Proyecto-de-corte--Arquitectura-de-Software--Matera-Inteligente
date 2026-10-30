@@ -1,626 +1,547 @@
+"use strict";
 
-/* GreenMind — UI-01 a UI-09.
- * MODO DEMOSTRACIÓN: el backend publicado solo expone especies y diagnósticos.
- * Las cuentas, materas y lecturas de esta demo viven exclusivamente en este navegador.
- * No utilizar este modo para contraseñas reales ni datos sensibles.
- */
-'use strict';
-
-const BASE = (localStorage.getItem('matera_api_url') || 'http://localhost:5000/api/v1')
-  .replace(/\/$/, '').replace(/\/api\/v1$/, '') + '/api/v1';
+// GREENMIND — FRONTEND CONECTADO A FLASK
+const API = window.location.origin;
 const $ = id => document.getElementById(id);
-const DEMO_KEY = 'greenmind_demo_plantas_v1';
-let plantas = leerDemo();
+
+let token = sessionStorage.getItem("greenmind_jwt") || "";
+let usuario = null;
+let plantas = [];
 let seleccionada = null;
-let sesionDemo = false;
-let reloj = null;
-let contadorLecturas = new Map();
+let intervalo = null;
+let especiesDisponibles = [];
 
-function leerDemo() {
-  try {
-    const p = JSON.parse(localStorage.getItem(DEMO_KEY) || '[]');
-    return Array.isArray(p) ? p : [];
-  } catch {
-    return [];
-  }
+function aviso(texto, error = false) {
+    const mensaje = $("mensaje");
+    mensaje.textContent = texto;
+    mensaje.style.color = error ? "#ff9b95" : "#76d9a5";
 }
 
-function guardarDemo() {
-  localStorage.setItem(DEMO_KEY, JSON.stringify(plantas));
-}
-
-function aviso(mensaje, error = false) {
-  $('mensaje').textContent = mensaje;
-  $('mensaje').style.color = error ? '#ff9b95' : '#76d9a5';
-}
-
-function navegar(id) {
-  const nombres = ['inicio', 'materas', 'registrar-planta', 'detalle', 'perfil'];
-  if (!nombres.includes(id)) return;
-  nombres.forEach(n => $(n).hidden = n !== id);
-  if (id === 'materas') renderPlantas();
-  if (id === 'inicio') renderInicio();
-}
-
-function navegarAuth(id) {
-  ['vista-login', 'vista-registro', 'vista-recuperar', 'vista-cambio-clave']
-    .forEach(n => $(n).hidden = n !== id);
-}
-
-function mostrarSesion(activa) {
-  sesionDemo = activa;
-  $('auth').hidden = activa;
-  $('panel').hidden = !activa;
-
-  if (activa) {
-    navegar('inicio');
-    iniciarSimulacion();
-  } else {
-    clearInterval(reloj);
-    reloj = null;
-    navegarAuth('vista-login');
-  }
-}
-
-const idNuevo = () => globalThis.crypto?.randomUUID?.() ||
-  ('demo-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2));
-
-const fecha = () => new Date().toISOString();
-
-function numero(min, max) {
-  return Math.round((Math.random() * (max - min) + min) * 10) / 10;
-}
-
-// Lecturas ilustrativas: una secuencia independiente por planta.
-function generarLectura(p) {
-  const i = (contadorLecturas.get(p.id) || 0) + 1;
-  contadorLecturas.set(p.id, i);
-
-  if (i % 11 === 0) return;
-
-  const humedad = i % 7 === 0 ? 5 : numero(45, 65);
-
-  const lectura = {
-    fecha: fecha(),
-    humedad,
-    luz: numero(500, 1100),
-    temperatura: numero(15, 23)
-  };
-
-  p.historial = [lectura, ...(p.historial || [])].slice(0, 30);
-}
-
-function iniciarSimulacion() {
-  if (reloj !== null) clearInterval(reloj);
-
-  reloj = setInterval(() => {
-    if (!sesionDemo) return;
-
-    plantas.forEach(generarLectura);
-    guardarDemo();
-
-    if (!$('detalle').hidden && seleccionada) mostrarDetalle();
-    if (!$('inicio').hidden) renderInicio();
-  }, 5000);
-}
-
-// =====================================
-// CATÁLOGO DE ESPECIES
-// =====================================
-
-async function especies() {
-  let nombres = [];
-
-  try {
-    const r = await fetch(`${BASE}/especies`, {
-      signal: AbortSignal.timeout(3500)
-    });
-
-    if (!r.ok) throw new Error('No disponible');
-
-    const datos = await r.json();
-
-    nombres = datos
-      .map(e => typeof e === 'string' ? e : e.nombre)
-      .filter(Boolean);
-
-  } catch {
-    aviso(
-      'API desconectada: el catálogo de especies necesita Flask.',
-      true
-    );
-  }
-
-  [$('especies'), $('editar-especie')].forEach(select => {
-    select.replaceChildren();
-
-    const vacia = document.createElement('option');
-    vacia.value = '';
-    vacia.textContent = 'Selecciona una especie';
-    select.append(vacia);
-
-    nombres.forEach(n => {
-      const option = document.createElement('option');
-      option.value = n;
-      option.textContent = n;
-      select.append(option);
-    });
-  });
-}
-
-// =====================================
-// INVENTARIO DE PLANTAS
-// =====================================
-
-function renderPlantas() {
-  const lista = $('plantas');
-  lista.replaceChildren();
-
-  if (plantas.length === 0) {
-    const p = document.createElement('p');
-    p.textContent = 'No hay plantas registradas en esta demostración.';
-    lista.append(p);
-    return;
-  }
-
-  plantas.forEach(p => {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'planta';
-
-    b.textContent = `${p.nombre} · ${p.especie} · ID: ${p.dispositivo}`;
-
-    b.addEventListener('click', () => {
-      seleccionada = p.id;
-      navegar('detalle');
-      mostrarDetalle();
-    });
-
-    lista.append(b);
-  });
-}
-
-function renderInicio() {
-  ['total-bien', 'total-regular', 'total-mal']
-    .forEach(id => $(id).textContent = '0');
-
-  $('total-sin-datos').textContent = String(plantas.length);
-
-  $('alertas-inicio').textContent =
-    'Sin alertas verificadas. Mediciones simuladas localmente.';
-
-  $('cambios-inicio').textContent = plantas.some(p => p.historial?.length)
-    ? 'Hay lecturas ilustrativas recientes. Consulta Mis materas.'
-    : 'Todavía no existen lecturas.';
-}
-
-// =====================================
-// MEDICIONES Y DIAGNÓSTICO
-// =====================================
-
-function ponerMedidas(lectura) {
-  const zona = $('medidas');
-  zona.replaceChildren();
-
-  if (!lectura) return;
-
-  [
-    ['Humedad', lectura.humedad, '%'],
-    ['Iluminación', lectura.luz, 'lux'],
-    ['Temperatura', lectura.temperatura, '°C']
-  ].forEach(([nombre, valor, unidad]) => {
-    const div = document.createElement('div');
-    const strong = document.createElement('strong');
-    const dato = document.createElement('p');
-
-    strong.textContent = nombre;
-    dato.textContent = `${valor} ${unidad}`;
-
-    div.append(strong, dato);
-    zona.append(div);
-  });
-}
-
-async function diagnosticoReal(p, lectura) {
-  if (!lectura) return;
-
-  const id = p.id;
-
-  try {
-    const r = await fetch(`${BASE}/diagnostics`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        especie: p.especie,
-        humedad: lectura.humedad,
-        luz: lectura.luz,
-        temperatura: lectura.temperatura
-      }),
-      signal: AbortSignal.timeout(3500)
-    });
-
-    if (!r.ok) {
-      throw new Error('El diagnóstico no está disponible');
-    }
-
-    const datos = await r.json();
-
-    if (seleccionada !== id || $('detalle').hidden) return;
-
-    $('estado').textContent =
-      `Diagnóstico API: ${datos.estado || 'No disponible'}`;
-
-    const zona = $('recomendaciones');
-    zona.replaceChildren();
-
-    if (
-      Array.isArray(datos.recomendaciones) &&
-      datos.recomendaciones.length
-    ) {
-      const lista = document.createElement('ul');
-
-      datos.recomendaciones.forEach(t => {
-        const li = document.createElement('li');
-        li.textContent = String(t);
-        lista.append(li);
-      });
-
-      zona.append(lista);
-    } else {
-      zona.textContent = 'No hay recomendaciones disponibles.';
-    }
-
-  } catch {
-    if (seleccionada === id) {
-      $('estado').textContent =
-        'No disponible (sin diagnóstico del servidor)';
-
-      $('recomendaciones').textContent =
-        'El diagnóstico requiere conexión con la API de Flask.';
-    }
-  }
-}
-
-function mostrarDetalle() {
-  const p = plantas.find(x => x.id === seleccionada);
-  if (!p) return;
-
-  const lectura = p.historial?.[0];
-
-  $('titulo').textContent = p.nombre;
-  $('detalle-especie').textContent = `Especie: ${p.especie}`;
-  $('detalle-identificador').textContent =
-    `Dispositivo: ${p.dispositivo}`;
-
-  $('estado').textContent =
-    'No disponible (consultando diagnóstico)';
-
-  $('fecha').textContent = lectura
-    ? `Última lectura: ${new Date(lectura.fecha).toLocaleString('es-CO')}`
-    : '';
-
-  $('estado-datos').textContent = lectura
-    ? 'Lectura ilustrativa del simulador local'
-    : 'Sin lecturas';
-
-  ponerMedidas(lectura);
-
-  $('historial').replaceChildren();
-
-  (p.historial || []).forEach(l => {
-    const fila = document.createElement('p');
-
-    fila.textContent =
-      `${new Date(l.fecha).toLocaleString('es-CO')} · ` +
-      `H ${l.humedad}% · ` +
-      `L ${l.luz} lux · ` +
-      `T ${l.temperatura}°C`;
-
-    $('historial').append(fila);
-  });
-
-  if (!lectura) {
-    $('historial').textContent =
-      'Esperando primera lectura ilustrativa.';
-  }
-
-  $('recomendaciones').textContent = lectura
-    ? 'Consultando reglas de la API…'
-    : 'Esperando lecturas válidas.';
-
-  diagnosticoReal(p, lectura);
-}
-
-// =====================================
-// IDENTIFICACIÓN QR
-// =====================================
-
-function validarIdentificador() {
-  const id = $('qr-manual').value.trim();
-
-  if (!id) {
-    return aviso('Introduce un identificador de matera.', true);
-  }
-
-  if (plantas.some(p => p.dispositivo === id)) {
-    $('estado-qr').textContent =
-      'Esta matera ya está vinculada en la demostración.';
-
-    $('identificador-registro').value = '';
-    return;
-  }
-
-  $('identificador-registro').value = id;
-
-  $('estado-qr').textContent =
-    'ID aceptado en modo demostración. ' +
-    'La validación real requiere backend.';
-}
-
-function marcarNoDisponible(funcion) {
-  aviso(
-    `${funcion} requiere un endpoint seguro en el backend. ` +
-    'No se efectuaron cambios.',
-    true
-  );
-}
-
-// =====================================
-// EVENTOS E INTERACCIONES
-// =====================================
-
-document.addEventListener('DOMContentLoaded', async () => {
-
-  // Navegación
-  document.querySelectorAll('[data-pantalla]').forEach(b => {
-    b.addEventListener('click', () => navegar(b.dataset.pantalla));
-  });
-
-  document.querySelectorAll('[data-auth-vista]').forEach(b => {
-    b.addEventListener('click', () => navegarAuth(b.dataset.authVista));
-  });
-
-  // Mostrar u ocultar contraseñas
-  document.querySelectorAll('.alternar-clave').forEach(c => {
-    c.addEventListener('change', () => {
-      c.dataset.objetivo.split(',').forEach(id => {
-        if ($(id)) {
-          $(id).type = c.checked ? 'text' : 'password';
+async function peticion(ruta, metodo = "GET", cuerpo = null) {
+    const opciones = {
+        method: metodo,
+        headers: {
+            "Content-Type": "application/json"
         }
-      });
-    });
-  });
+    };
 
-  // Login demostrativo
-  $('login').addEventListener('submit', e => {
-    e.preventDefault();
-
-    const email = new FormData(e.currentTarget).get('correo');
-
-    $('perfil-correo').value = String(email || '');
-
-    mostrarSesion(true);
-
-    aviso(
-      'MODO DEMOSTRACIÓN: ' +
-      'no se ha iniciado sesión en el servidor.'
-    );
-  });
-
-  // Cerrar sesión
-  $('salir').addEventListener('click', () => {
-    mostrarSesion(false);
-    aviso('Demostración cerrada.');
-  });
-
-  // Registro de usuario
-  $('registro').addEventListener('submit', e => {
-    e.preventDefault();
-
-    if (
-      $('contrasena-registro').value !==
-      $('confirmar-registro').value
-    ) {
-      return aviso('Las contraseñas no coinciden.', true);
+    if (token) {
+        opciones.headers.Authorization = `Bearer ${token}`;
     }
 
-    marcarNoDisponible(
-      'El registro de usuarios y la verificación por correo'
-    );
-  });
+    if (cuerpo !== null) {
+        opciones.body = JSON.stringify(cuerpo);
+    }
 
-  // Recuperación de contraseña
-  $('recuperar-contrasena').addEventListener('submit', e => {
-    e.preventDefault();
-    marcarNoDisponible('La recuperación de contraseña');
-  });
+    let respuesta;
+    try {
+        respuesta = await fetch(API + ruta, opciones);
+    } catch {
+        throw new Error("No hay conexión con Flask.");
+    }
 
-  // Cambio de contraseña
-  $('cambiar-contrasena').addEventListener('submit', e => {
-    e.preventDefault();
-    marcarNoDisponible('El cambio de contraseña');
-  });
+    const datos = await respuesta.json().catch(() => ({}));
 
-  [
-    'verificar-cuenta',
-    'reenviar-codigo',
-    'solicitar-nuevo-codigo'
-  ].forEach(id => {
-    $(id).addEventListener('click', () => {
-      marcarNoDisponible('La verificación por correo');
+    if (!respuesta.ok) {
+        if (respuesta.status === 401 && token) {
+            cerrarSesion();
+        }
+        throw new Error(datos.mensaje || `HTTP ${respuesta.status}`);
+    }
+
+    return datos;
+}
+
+// NAVEGACIÓN
+function pantalla(id) {
+    ["inicio", "materas", "registrar-planta", "detalle", "perfil"]
+        .forEach(nombre => {
+            $(nombre).hidden = nombre !== id;
+        });
+
+    if (id === "inicio") cargarResumen();
+    if (id === "materas") cargarPlantas();
+}
+
+function pantallaAuth(id) {
+    ["vista-login", "vista-registro", "vista-recuperar",
+     "vista-cambio-clave"].forEach(nombre => {
+        $(nombre).hidden = nombre !== id;
     });
-  });
+}
 
-  // Perfil
-  $('editar-perfil').addEventListener('submit', e => {
-    e.preventDefault();
-    marcarNoDisponible('La edición de perfil');
-  });
+function mostrarPanel() {
+    $("auth").hidden = true;
+    $("panel").hidden = false;
+    pantalla("inicio");
+    iniciarActualizacion();
+}
 
-  // Escaneo QR pendiente de integración
-  $('activar-camara').addEventListener('click', () => {
-    marcarNoDisponible('El escaneo QR con cámara');
-  });
+function cerrarSesion() {
+    token = "";
+    usuario = null;
+    seleccionada = null;
+    plantas = [];
+    sessionStorage.removeItem("greenmind_jwt");
 
-  $('reintentar-qr').addEventListener('click', () => {
-    $('qr-manual').value = '';
-    $('identificador-registro').value = '';
+    clearInterval(intervalo);
+    intervalo = null;
 
-    $('estado-qr').textContent =
-      'Esperando lectura del QR.';
-  });
+    $("auth").hidden = false;
+    $("panel").hidden = true;
+    pantallaAuth("vista-login");
+}
 
-  $('validar-qr').addEventListener(
-    'click',
-    validarIdentificador
-  );
+// AUTENTICACIÓN
+async function iniciarSesion(evento) {
+    evento.preventDefault();
 
-  // Registrar planta en demostración local
-  $('crear').addEventListener('submit', e => {
-    e.preventDefault();
+    const datos = new FormData(evento.currentTarget);
 
-    const form = new FormData(e.currentTarget);
+    try {
+        const resultado = await peticion("/api/auth/login", "POST", {
+            correo: datos.get("correo"),
+            contrasena: datos.get("contrasena")
+        });
 
-    const nombre =
-      String(form.get('nombre') || '').trim();
+        if (!resultado.token) {
+            throw new Error("El backend no entregó el JWT.");
+        }
 
-    const especie =
-      String(form.get('especie') || '').trim();
+        token = resultado.token;
+        usuario = resultado.usuario;
+        sessionStorage.setItem("greenmind_jwt", token);
 
-    const dispositivo =
-      $('identificador-registro').value.trim();
+        if (usuario) {
+            $("perfil-correo").value = usuario.correo || "";
+            $("perfil-nombre").value = usuario.nombre || "";
+        }
+
+        mostrarPanel();
+        aviso("Sesión iniciada.");
+
+    } catch (error) {
+        aviso(error.message, true);
+    }
+}
+
+async function registrarUsuario(evento) {
+    evento.preventDefault();
+
+    if ($("contrasena-registro").value !==
+        $("confirmar-registro").value) {
+        aviso("Las contraseñas no coinciden.", true);
+        return;
+    }
+
+    const datos = new FormData(evento.currentTarget);
+
+    try {
+        await peticion("/api/auth/register", "POST", {
+            nombre: datos.get("nombre"),
+            correo: datos.get("correo"),
+            contrasena: datos.get("contrasena")
+        });
+
+        evento.currentTarget.reset();
+        pantallaAuth("vista-login");
+        aviso("Cuenta registrada. Inicia sesión.");
+
+    } catch (error) {
+        aviso(error.message, true);
+    }
+}
+
+// ESPECIES
+async function cargarEspecies() {
+    const resultado = await peticion("/api/v1/especies");
+    especiesDisponibles = resultado;
+
+    for (const id of ["especies", "editar-especie"]) {
+        const selector = $(id);
+        selector.replaceChildren();
+
+        const inicial = document.createElement("option");
+        inicial.value = "";
+        inicial.textContent = "Selecciona una especie";
+        selector.appendChild(inicial);
+
+        resultado.forEach(especie => {
+            const opcion = document.createElement("option");
+            opcion.value = especie.nombre;
+            opcion.textContent = especie.nombre;
+            selector.appendChild(opcion);
+        });
+    }
+}
+
+// MATERAS
+async function cargarPlantas() {
+    if (!token) return;
+
+    try {
+        const resultado = await peticion("/api/v1/plantas");
+        plantas = resultado.plantas || [];
+
+        const contenedor = $("plantas");
+        contenedor.replaceChildren();
+
+        if (!plantas.length) {
+            contenedor.textContent =
+                "Todavía no hay materas registradas.";
+            return;
+        }
+
+        plantas.forEach(planta => {
+            const boton = document.createElement("button");
+            boton.type = "button";
+            boton.className = "planta";
+            boton.textContent =
+                `${planta.nombre} · ${planta.especie}`;
+
+            boton.addEventListener("click", () => {
+                seleccionada = planta.id;
+                pantalla("detalle");
+                cargarDetalle();
+            });
+
+            contenedor.appendChild(boton);
+        });
+
+    } catch (error) {
+        aviso(error.message, true);
+    }
+}
+
+async function registrarPlanta(evento) {
+    evento.preventDefault();
+
+    const datos = new FormData(evento.currentTarget);
+    const dispositivo = $("identificador-registro").value.trim();
 
     if (!dispositivo) {
-      return aviso(
-        'Valida el identificador antes de registrar.',
-        true
-      );
+        aviso("Introduce el identificador del dispositivo.", true);
+        return;
     }
 
-    if (!nombre || !especie) {
-      return aviso(
-        'Nombre y especie son obligatorios.',
-        true
-      );
-    }
+    try {
+        const resultado = await peticion(
+            "/api/v1/plantas",
+            "POST",
+            {
+                nombre: datos.get("nombre"),
+                especie: datos.get("especie"),
+                dispositivo
+            }
+        );
 
-    if (plantas.some(p => p.dispositivo === dispositivo)) {
-      return aviso('Identificador ya vinculado.', true);
-    }
+        evento.currentTarget.reset();
+        $("identificador-registro").value = "";
+        $("qr-manual").value = "";
 
-    plantas.push({
-      id: idNuevo(),
-      nombre,
-      especie,
-      dispositivo,
-      historial: []
+        pantalla("materas");
+
+        // El token del dispositivo es distinto al JWT del usuario.
+        // No se guarda en localStorage ni se imprime en consola.
+        if (resultado.token_dispositivo) {
+            aviso(
+                "Matera registrada. El backend emitió una credencial " +
+                "de dispositivo; falta configurar el simulador."
+            );
+        } else {
+            aviso("Matera registrada.");
+        }
+
+    } catch (error) {
+        aviso(error.message, true);
+    }
+}
+
+// DIAGNÓSTICO
+function mostrarMedidas(lectura) {
+    const contenedor = $("medidas");
+    contenedor.replaceChildren();
+
+    if (!lectura) return;
+
+    [
+        ["Humedad", lectura.humedad, "%"],
+        ["Luz", lectura.luz, "lux"],
+        ["Temperatura", lectura.temperatura, "°C"]
+    ].forEach(([nombre, valor, unidad]) => {
+        const bloque = document.createElement("div");
+        const titulo = document.createElement("strong");
+        const texto = document.createElement("p");
+
+        titulo.textContent = nombre;
+        texto.textContent = `${valor} ${unidad}`;
+
+        bloque.append(titulo, texto);
+        contenedor.appendChild(bloque);
+    });
+}
+
+async function cargarDetalle() {
+    if (!seleccionada || !token) return;
+
+    const id = seleccionada;
+
+    try {
+        const [estado, historial] = await Promise.all([
+            peticion(`/api/v1/plantas/${encodeURIComponent(id)}/estado`),
+            peticion(`/api/v1/plantas/${encodeURIComponent(id)}/historial`)
+        ]);
+
+        if (id !== seleccionada) return;
+
+        const planta = estado.planta;
+        const lectura = estado.lectura;
+        const diagnostico = estado.diagnostico;
+
+        $("titulo").textContent = planta.nombre;
+        $("detalle-especie").textContent = planta.especie;
+        $("detalle-identificador").textContent =
+            `Dispositivo: ${planta.dispositivo}`;
+
+        $("estado").textContent =
+            diagnostico?.estado || "No disponible";
+
+        $("estado-datos").textContent = lectura
+            ? "Última lectura registrada"
+            : "Sin mediciones disponibles";
+
+        $("fecha").textContent = lectura
+            ? new Date(lectura.fecha).toLocaleString("es-CO")
+            : "";
+
+        mostrarMedidas(lectura);
+
+        const recomendaciones = $("recomendaciones");
+        recomendaciones.replaceChildren();
+
+        if (diagnostico?.recomendaciones?.length) {
+            diagnostico.recomendaciones.forEach(texto => {
+                const p = document.createElement("p");
+                p.textContent = texto;
+                recomendaciones.appendChild(p);
+            });
+        } else {
+            recomendaciones.textContent =
+                lectura
+                    ? "Sin recomendaciones adicionales."
+                    : "Esperando lecturas válidas.";
+        }
+
+        const zonaHistorial = $("historial");
+        zonaHistorial.replaceChildren();
+
+        (historial.lecturas || []).forEach(l => {
+            const fila = document.createElement("p");
+            fila.textContent =
+                `${new Date(l.fecha).toLocaleString("es-CO")} · ` +
+                `H ${l.humedad}% · L ${l.luz} lux · ` +
+                `T ${l.temperatura} °C`;
+            zonaHistorial.appendChild(fila);
+        });
+
+        if (!(historial.lecturas || []).length) {
+            zonaHistorial.textContent = "Sin lecturas registradas.";
+        }
+
+    } catch (error) {
+        aviso(error.message, true);
+    }
+}
+
+// EDICIÓN Y DESVINCULACIÓN
+function abrirEdicion() {
+    const planta = plantas.find(p => p.id === seleccionada);
+    if (!planta) return;
+
+    $("editar-nombre").value = planta.nombre;
+    $("editar-especie").value = planta.especie;
+    $("editar-dispositivo").value = planta.dispositivo;
+    $("editar-planta").hidden = false;
+}
+
+async function guardarEdicion(evento) {
+    evento.preventDefault();
+
+    if (!seleccionada) return;
+
+    try {
+        await peticion(
+            `/api/v1/plantas/${encodeURIComponent(seleccionada)}`,
+            "PATCH",
+            {
+                nombre: $("editar-nombre").value.trim(),
+                especie: $("editar-especie").value
+            }
+        );
+
+        $("editar-planta").hidden = true;
+        await cargarPlantas();
+        await cargarDetalle();
+        aviso("Planta actualizada.");
+
+    } catch (error) {
+        aviso(error.message, true);
+    }
+}
+
+async function desvincular() {
+    if (!seleccionada) return;
+
+    try {
+        await peticion(
+            `/api/v1/plantas/${encodeURIComponent(seleccionada)}`,
+            "DELETE"
+        );
+
+        seleccionada = null;
+        $("confirmar-desvinculacion").hidden = true;
+
+        pantalla("materas");
+        aviso("Matera desvinculada. Historial conservado en SQLite.");
+
+    } catch (error) {
+        aviso(error.message, true);
+    }
+}
+
+// RESUMEN
+async function cargarResumen() {
+    if (!token) return;
+
+    try {
+        await cargarPlantas();
+
+        $("total-bien").textContent = "—";
+        $("total-regular").textContent = "—";
+        $("total-mal").textContent = "—";
+        $("total-sin-datos").textContent = "—";
+
+        $("alertas-inicio").textContent =
+            "Consulta cada planta para ver su diagnóstico.";
+        $("cambios-inicio").textContent =
+            `${plantas.length} materas registradas.`;
+    } catch (error) {
+        aviso(error.message, true);
+    }
+}
+
+function iniciarActualizacion() {
+    clearInterval(intervalo);
+
+    intervalo = setInterval(() => {
+        if (!token) return;
+        if (!$("detalle").hidden && seleccionada) {
+            cargarDetalle();
+        }
+    }, 5000);
+}
+
+// EVENTOS
+document.addEventListener("DOMContentLoaded", async () => {
+    document.querySelectorAll("[data-pantalla]").forEach(b => {
+        b.addEventListener("click", () => pantalla(b.dataset.pantalla));
     });
 
-    guardarDemo();
+    document.querySelectorAll("[data-auth-vista]").forEach(b => {
+        b.addEventListener("click", () => pantallaAuth(b.dataset.authVista));
+    });
 
-    e.currentTarget.reset();
+    document.querySelectorAll(".alternar-clave").forEach(c => {
+        c.addEventListener("change", () => {
+            c.dataset.objetivo.split(",").forEach(id => {
+                const campo = $(id);
+                if (campo) {
+                    campo.type = c.checked ? "text" : "password";
+                }
+            });
+        });
+    });
 
-    $('identificador-registro').value = '';
-    $('qr-manual').value = '';
+    $("login").addEventListener("submit", iniciarSesion);
+    $("registro").addEventListener("submit", registrarUsuario);
+    $("salir").addEventListener("click", cerrarSesion);
+    $("crear").addEventListener("submit", registrarPlanta);
 
-    $('estado-qr').textContent =
-      'Esperando lectura del QR.';
+    $("validar-qr").addEventListener("click", () => {
+        const id = $("qr-manual").value.trim();
+        if (!id) {
+            aviso("Introduce el identificador del QR.", true);
+            return;
+        }
 
-    navegar('materas');
+        // Esto captura el ID, pero no valida el dispositivo en servidor.
+        $("identificador-registro").value = id;
+        $("estado-qr").textContent =
+            "Identificador leído. Disponibilidad pendiente " +
+            "de confirmar al registrar.";
+    });
 
-    aviso(
-      'Matera registrada SOLO en este navegador. ' +
-      'Simulación ilustrativa activa.'
+    $("activar-camara").addEventListener("click", () =>
+        aviso("Escaneo con cámara pendiente de implementación.", true)
     );
-  });
 
-  // Abrir edición
-  $('abrir-edicion').addEventListener('click', () => {
-    const p = plantas.find(x => x.id === seleccionada);
-    if (!p) return;
+    $("reintentar-qr").addEventListener("click", () => {
+        $("qr-manual").value = "";
+        $("identificador-registro").value = "";
+        $("estado-qr").textContent = "Esperando identificador.";
+    });
 
-    $('editar-nombre').value = p.nombre;
-    $('editar-especie').value = p.especie;
-    $('editar-dispositivo').value = p.dispositivo;
+    $("abrir-edicion").addEventListener("click", abrirEdicion);
+    $("editar-planta").addEventListener("submit", guardarEdicion);
+    $("cancelar-edicion").addEventListener("click", () => {
+        $("editar-planta").hidden = true;
+    });
 
-    $('editar-planta').hidden = false;
-  });
+    $("abrir-desvinculacion").addEventListener("click", () => {
+        $("confirmar-desvinculacion").hidden = false;
+    });
 
-  // Cancelar edición
-  $('cancelar-edicion').addEventListener('click', () => {
-    $('editar-planta').hidden = true;
-  });
+    $("cancelar-eliminacion").addEventListener("click", () => {
+        $("confirmar-desvinculacion").hidden = true;
+    });
 
-  // Guardar edición local
-  $('editar-planta').addEventListener('submit', e => {
-    e.preventDefault();
+    $("confirmar-eliminacion").addEventListener("click", desvincular);
 
-    const p = plantas.find(x => x.id === seleccionada);
-    if (!p) return;
-
-    const nombre = $('editar-nombre').value.trim();
-    const especie = $('editar-especie').value;
-
-    if (!nombre || !especie) {
-      return aviso(
-        'Nombre y especie son obligatorios.',
-        true
-      );
+    for (const id of [
+        "recuperar-contrasena", "cambiar-contrasena",
+        "editar-perfil"
+    ]) {
+        $(id).addEventListener("submit", evento => {
+            evento.preventDefault();
+            aviso(
+                "Esta función todavía no tiene endpoint en Flask.",
+                true
+            );
+        });
     }
 
-    p.nombre = nombre;
-    p.especie = especie;
+    for (const id of [
+        "verificar-cuenta", "reenviar-codigo",
+        "solicitar-nuevo-codigo"
+    ]) {
+        $(id).addEventListener("click", () => {
+            aviso("Verificación por correo pendiente de backend.", true);
+        });
+    }
 
-    guardarDemo();
+    $("perfil-cambiar-clave").addEventListener("click", () => {
+        $("panel").hidden = true;
+        $("auth").hidden = false;
+        pantallaAuth("vista-cambio-clave");
+    });
 
-    $('editar-planta').hidden = true;
-    mostrarDetalle();
+    try {
+        await cargarEspecies();
+    } catch (error) {
+        aviso(error.message, true);
+    }
 
-    aviso(
-      'Cambios guardados SOLO en la demostración local.'
-    );
-  });
-
-  // Abrir confirmación de desvinculación
-  $('abrir-desvinculacion').addEventListener('click', () => {
-    $('confirmar-desvinculacion').hidden = false;
-  });
-
-  $('cancelar-eliminacion').addEventListener('click', () => {
-    $('confirmar-desvinculacion').hidden = true;
-  });
-
-  // Desvinculación local
-  $('confirmar-eliminacion').addEventListener('click', () => {
-    plantas = plantas.filter(p => p.id !== seleccionada);
-
-    guardarDemo();
-    seleccionada = null;
-
-    $('confirmar-desvinculacion').hidden = true;
-
-    navegar('materas');
-
-    aviso(
-      'Desvinculada SOLO en la demo. ' +
-      'Archivo histórico real no implementado.'
-    );
-  });
-
-  // Cambiar contraseña desde perfil
-  $('perfil-cambiar-clave').addEventListener('click', () => {
-    $('panel').hidden = true;
-    $('auth').hidden = false;
-
-    navegarAuth('vista-cambio-clave');
-  });
-
-  await especies();
-
-  renderInicio();
-
-  aviso(
-    'Vista previa local. ' +
-    'El backend publicado solo incluye diagnóstico y especies.'
-  );
+    if (token) {
+        mostrarPanel();
+    }
 });

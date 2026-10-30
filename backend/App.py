@@ -20,6 +20,7 @@ from aplicacion.Diagnostico import (
 )
 from dominio.modelos.EvaluadorPlanta import EvaluadorDePlanta
 from infraestructura.Provedorcsv import ProveedorCsvDeRangos
+from infraestructura.ProveedorSqliteDeRangos import ProveedorSqliteDeRangos
 from presentacion.Controlador import crear_blueprint_de_diagnostico
 
 
@@ -37,7 +38,23 @@ def crear_aplicacion():
         return aplicacion.send_static_file("index.html")
 
 
-    proveedor_de_rangos = ProveedorCsvDeRangos(RUTA_ARCHIVO_ESPECIES)
+    backend_rangos = os.getenv(
+        "REFERENCE_BACKEND", "csv"
+    ).strip().lower()
+
+    if backend_rangos == "csv":
+        proveedor_de_rangos = ProveedorCsvDeRangos(
+            RUTA_ARCHIVO_ESPECIES
+        )
+    elif backend_rangos == "db":
+        proveedor_de_rangos = ProveedorSqliteDeRangos(
+            Path(__file__).parent / "data" / "rangos.sqlite3",
+            RUTA_ARCHIVO_ESPECIES
+        )
+    else:
+        raise ValueError(
+            "REFERENCE_BACKEND debe ser 'csv' o 'db'"
+        )
     evaluador_de_planta = EvaluadorDePlanta()
 
     caso_diagnosticar = DiagnosticarPlantaCasoDeUso(

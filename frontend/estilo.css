@@ -1,3 +1,88 @@
+/* GREENMIND_BASE_RESTAURADA */
+
+:root {
+    color-scheme: dark;
+    --fondo: #0b1210;
+    --superficie: #111d17;
+    --superficie-alta: #192b21;
+    --campo: #17271e;
+    --borde: #2c4938;
+    --texto: #edf5ef;
+    --secundario: #afc2b4;
+    --verde: #76d9a5;
+    --verde-hover: #94e8bb;
+    --foco: #b9f7d1;
+    font-family: system-ui, Arial, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--fondo);
+    color: var(--texto);
+}
+
+[hidden] { display: none !important; }
+
+.contenedor {
+    width: min(1100px, calc(100% - 32px));
+    margin-inline: auto;
+}
+
+.encabezado {
+    padding: 23px 0;
+    background: #101c17;
+    border-bottom: 1px solid var(--borde);
+}
+
+.encabezado h1 { margin: 0 0 5px; }
+.encabezado p { color: var(--secundario); }
+.principal { padding: 28px 0 55px; }
+
+.tarjeta {
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    padding: 25px;
+    border-radius: 18px;
+}
+
+.auth-card {
+    max-width: 520px;
+    margin: 25px auto;
+}
+
+.formulario {
+    display: grid;
+    gap: 17px;
+}
+
+.formulario label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.formulario input:not([type="checkbox"]),
+.formulario select,
+.formulario textarea {
+    width: 100%;
+    padding: 11px 13px;
+    background: var(--campo);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    color: var(--texto);
+}
+
+button, input, select, textarea {
+    font: inherit;
+}
+
+button { cursor: pointer; }
+
   outline-offset: 2px;
 }
 .formulario input:focus, .formulario select:focus, .formulario textarea:focus,

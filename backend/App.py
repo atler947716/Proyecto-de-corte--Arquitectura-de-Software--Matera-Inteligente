@@ -1,3 +1,14 @@
+
+import os
+
+from infraestructura.RepositorioSQLite import (
+    ConexionSQLite,
+    RepositorioUsuariosSQLite,
+    RepositorioMaterasSQLite,
+    RepositorioLecturasSQLite,
+)
+from presentacion.ApiMateras import crear_api_materas
+
 from pathlib import Path
 
 from flask import Flask
@@ -18,8 +29,13 @@ RUTA_ARCHIVO_ESPECIES = (
 
 
 def crear_aplicacion():
-    aplicacion = Flask(__name__)
+    aplicacion = Flask(__name__, static_folder="../frontend", static_url_path="")
     CORS(aplicacion)
+
+    @aplicacion.get("/")
+    def pagina_principal():
+        return aplicacion.send_static_file("index.html")
+
 
     proveedor_de_rangos = ProveedorCsvDeRangos(RUTA_ARCHIVO_ESPECIES)
     evaluador_de_planta = EvaluadorDePlanta()
@@ -31,6 +47,26 @@ def crear_aplicacion():
 
     aplicacion.register_blueprint(
         crear_blueprint_de_diagnostico(caso_diagnosticar, caso_listar)
+    )
+
+
+    secreto = os.environ.get("GREENMIND_JWT_SECRET", "")
+
+    if len(secreto) < 32:
+        raise RuntimeError(
+            "GREENMIND_JWT_SECRET debe tener al menos 32 caracteres."
+        )
+
+    conexion = ConexionSQLite()
+
+    aplicacion.register_blueprint(
+        crear_api_materas(
+            usuarios=RepositorioUsuariosSQLite(conexion),
+            materas=RepositorioMaterasSQLite(conexion),
+            lecturas=RepositorioLecturasSQLite(conexion),
+            diagnosticar=caso_diagnosticar,
+            secreto=secreto
+        )
     )
 
     return aplicacion

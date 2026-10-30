@@ -1,46 +1,239 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matera Inteligente</title>
-    <link rel="stylesheet" href="estilo.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1210">
+  <title>GreenMind | Matera inteligente</title>
+  <link rel="stylesheet" href="estilo.css">
+  <style>
+    [hidden]{display:none!important}
+    .navegacion{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 24px}
+    .navegacion button{flex:1;min-width:105px}
+    .acciones{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+    .acciones button{flex:1}
+    .texto-ayuda{opacity:.8;font-size:.9rem}
+    .seccion-titulo{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .indicador{display:inline-block;border:1px solid #42604c;border-radius:30px;padding:5px 10px}
+    .resumen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+    .resumen-grid article{padding:14px;background:#1b3025;border-radius:12px}
+    .resumen-grid strong{display:block;font-size:1.5rem}
+    .qr-area{border:2px dashed #42604c;border-radius:14px;padding:20px;text-align:center}
+    .formulario textarea{width:100%;min-height:96px}
+    .formulario button,.acciones button{min-height:42px}
+    .pantalla>h2{margin-top:0}
+    @media(max-width:600px){.navegacion{position:static}.acciones{flex-direction:column}}
+  </style>
 </head>
 <body>
-    <main>
-        <h1>Diagnóstico de tu planta</h1>
+<header class="encabezado">
+  <div class="contenedor">
+    <h1>🌿 GreenMind</h1>
+    <p>Monitoreo de materas inteligentes</p>
+  </div>
+</header>
+<main class="contenedor principal">
 
-        <form id="formulario-diagnostico">
-            <label for="selector-especie">Especie</label>
-            <select id="selector-especie" required>
-                <option value="">Cargando especies…</option>
-            </select>
+  <!-- UI-01: INICIO DE SESIÓN -->
+  <section id="auth" class="tarjeta auth-card pantalla">
+    <div id="vista-login">
+      <h2>Iniciar sesión</h2>
+      <p>Accede a tus plantas y diagnósticos.</p>
+      <form id="login" class="formulario">
+        <label>Correo electrónico<input name="correo" type="email" autocomplete="email" required></label>
+        <label>Contraseña<input name="contrasena" id="contrasena-login" type="password" autocomplete="current-password" required></label>
+        <label><input type="checkbox" class="alternar-clave" data-objetivo="contrasena-login"> Mostrar contraseña</label>
+        <button type="submit">Iniciar sesión</button>
+      </form>
+      <div class="acciones">
+        <button type="button" data-auth-vista="vista-recuperar">¿Olvidaste tu contraseña?</button>
+        <button type="button" data-auth-vista="vista-registro">Crear una cuenta</button>
+      </div>
+    </div>
 
-            <label for="campo-humedad">Humedad del sustrato (porcentaje)</label>
-            <input type="number" id="campo-humedad" step="0.1" required>
+    <!-- UI-07: CREAR CUENTA -->
+    <div id="vista-registro" hidden>
+      <h2>Crear cuenta</h2>
+      <form id="registro" class="formulario">
+        <label>Nombre<input name="nombre" autocomplete="name" required></label>
+        <label>Correo electrónico<input name="correo" type="email" autocomplete="email" required></label>
+        <label>Contraseña<input id="contrasena-registro" name="contrasena" type="password" minlength="8" autocomplete="new-password" required></label>
+        <label>Confirmar contraseña<input id="confirmar-registro" type="password" minlength="8" autocomplete="new-password" required></label>
+        <label><input type="checkbox" class="alternar-clave" data-objetivo="contrasena-registro,confirmar-registro"> Mostrar contraseñas</label>
+        <button type="submit">Crear cuenta</button>
+      </form>
+      <p class="texto-ayuda">La verificación del correo requiere conexión con el servicio de correo del backend.</p>
+      <section id="verificacion-cuenta" hidden>
+        <h3>Verificar cuenta</h3>
+        <label>Código recibido por correo<input id="codigo-verificacion" inputmode="numeric" autocomplete="one-time-code"></label>
+        <div class="acciones"><button type="button" id="verificar-cuenta">Verificar cuenta</button><button type="button" id="reenviar-codigo">Reenviar código</button></div>
+      </section>
+      <button type="button" data-auth-vista="vista-login">Ya tengo una cuenta</button>
+    </div>
 
-            <label for="campo-luz">Nivel de luz (lux)</label>
-            <input type="number" id="campo-luz" step="1" required>
+    <!-- UI-08: RECUPERAR CONTRASEÑA -->
+    <div id="vista-recuperar" hidden>
+      <h2>Recuperar contraseña</h2>
+      <p>Solicita un código de recuperación por correo electrónico.</p>
+      <form id="recuperar-contrasena" class="formulario">
+        <label>Correo electrónico<input name="correo" type="email" autocomplete="email" required></label>
+        <button type="submit">Enviar código de recuperación</button>
+      </form>
+      <button type="button" data-auth-vista="vista-cambio-clave">Ya tengo un código</button>
+      <button type="button" data-auth-vista="vista-login">Volver a iniciar sesión</button>
+    </div>
 
-            <label for="campo-temperatura">Temperatura (grados Celsius)</label>
-            <input type="number" id="campo-temperatura" step="0.1" required>
+    <!-- UI-09: CAMBIAR CONTRASEÑA -->
+    <div id="vista-cambio-clave" hidden>
+      <h2>Cambiar contraseña</h2>
+      <form id="cambiar-contrasena" class="formulario">
+        <label>Código de verificación<input name="codigo" autocomplete="one-time-code" required></label>
+        <label>Nueva contraseña<input name="nueva_contrasena" id="clave-nueva" type="password" minlength="8" required></label>
+        <label>Confirmar nueva contraseña<input id="clave-confirmacion" type="password" minlength="8" required></label>
+        <label><input type="checkbox" class="alternar-clave" data-objetivo="clave-nueva,clave-confirmacion"> Mostrar contraseñas</label>
+        <button type="submit">Guardar nueva contraseña</button>
+      </form>
+      <button type="button" id="solicitar-nuevo-codigo">Solicitar nuevo código</button>
+      <button type="button" data-auth-vista="vista-login">Cancelar</button>
+    </div>
+  </section>
 
-            <button type="submit">Consultar diagnóstico</button>
-        </form>
+  <!-- ÁREA PRIVADA -->
+  <section id="panel" hidden>
+    <nav class="navegacion" aria-label="Navegación principal">
+      <button type="button" data-pantalla="inicio">Inicio</button>
+      <button type="button" data-pantalla="materas">Mis materas</button>
+      <button type="button" data-pantalla="perfil">Perfil</button>
+      <button id="salir" type="button" class="boton-secundario">Cerrar sesión</button>
+    </nav>
 
-        <section id="zona-resultado" hidden>
-            <h2>Resultado</h2>
-            <p id="estado-global"></p>
-            <ul id="lista-parametros"></ul>
-            <h3>Recomendaciones</h3>
-            <ul id="lista-recomendaciones"></ul>
-        </section>
+    <!-- UI-02: INICIO -->
+    <section id="inicio" class="tarjeta pantalla">
+      <h2>Inicio</h2>
+      <p>Resumen de las plantas registradas.</p>
+      <div class="resumen-grid">
+        <article><span>Bien</span><strong id="total-bien">—</strong></article>
+        <article><span>Regular</span><strong id="total-regular">—</strong></article>
+        <article><span>Mal</span><strong id="total-mal">—</strong></article>
+        <article><span>No disponible</span><strong id="total-sin-datos">—</strong></article>
+      </div>
+      <h3>Alertas</h3>
+      <div id="alertas-inicio" aria-live="polite">No hay información suficiente para mostrar alertas.</div>
+      <h3>Cambios recientes</h3>
+      <div id="cambios-inicio">Solo se mostrarán cuando existan lecturas comparables.</div>
+      <div class="acciones"><button type="button" data-pantalla="materas">Ir a Mis materas</button></div>
+    </section>
 
-        <section id="zona-error" hidden>
-            <h2>Error</h2>
-            <p id="mensaje-error"></p>
-        </section>
-    </main>
-    <script src="script.js"></script>
+    <!-- UI-03: MIS MATERAS -->
+    <section id="materas" class="tarjeta pantalla" hidden>
+      <div class="seccion-titulo"><h2>Mis materas</h2><button type="button" data-pantalla="registrar-planta">Registrar planta</button></div>
+      <p>Selecciona una planta para consultar su diagnóstico.</p>
+      <div id="plantas" class="lista-plantas"></div>
+    </section>
+
+    <!-- UI-04: REGISTRAR PLANTA -->
+    <section id="registrar-planta" class="tarjeta pantalla" hidden>
+      <h2>Registrar planta</h2>
+      <p>Escanea el código QR de la matera inteligente para iniciar el registro.</p>
+      <div class="qr-area" id="zona-qr">
+        <p id="estado-qr" aria-live="polite">Esperando lectura del QR.</p>
+        <video id="camara-qr" autoplay playsinline muted hidden style="max-width:100%;max-height:240px"></video>
+        <div class="acciones">
+          <button type="button" id="activar-camara">Activar cámara</button>
+          <button type="button" id="reintentar-qr">Reintentar lectura</button>
+        </div>
+        <label>Identificador QR (alternativa para entorno de desarrollo)
+          <input id="qr-manual" placeholder="Identificador de la matera" autocomplete="off">
+        </label>
+        <button type="button" id="validar-qr">Validar identificador</button>
+      </div>
+      <form id="crear" class="formulario">
+        <h3>Datos de la planta</h3>
+        <label>Nombre de la planta<input name="nombre" maxlength="100" required></label>
+        <label>Especie<select id="especies" name="especie" required><option value="">Selecciona una especie</option></select></label>
+        <label>Identificador único de la matera<input id="identificador-registro" name="dispositivo" readonly placeholder="Se completará al validar el QR"></label>
+        <label>Fotografía (opcional)<input name="fotografia" type="file" accept="image/*"></label>
+        <p class="texto-ayuda">La validación del QR no significa que la matera ya esté registrada. El backend comprobará la disponibilidad al confirmar.</p>
+        <button type="submit">Confirmar registro</button>
+      </form>
+      <button type="button" data-pantalla="materas">Volver</button>
+    </section>
+
+    <!-- UI-05: DIAGNÓSTICO Y EDICIÓN -->
+    <section id="detalle" class="tarjeta diagnostico pantalla" hidden>
+      <button type="button" data-pantalla="materas">Volver a Mis materas</button>
+      <h2 id="titulo">Diagnóstico individual</h2>
+      <p id="detalle-especie"></p>
+      <p id="detalle-identificador" class="texto-ayuda"></p>
+      <div class="estado-planta"><p id="estado">Sin lecturas disponibles</p><p id="fecha"></p><p id="estado-datos">Datos no disponibles</p></div>
+      <h3>Mediciones actuales</h3><div id="medidas" class="medidas-grid"></div>
+      <h3>Qué necesita la planta</h3><div id="recomendaciones">Las recomendaciones se mostrarán cuando haya lecturas válidas suficientes.</div>
+      <h3>Historial de lecturas</h3><div id="historial" class="historial"></div>
+      <div class="acciones">
+        <button id="abrir-edicion" type="button">Modificar planta</button>
+        <button id="abrir-desvinculacion" type="button" class="boton-secundario">Eliminar registro y desvincular</button>
+      </div>
+      <form id="editar-planta" class="formulario" hidden>
+        <h3>Modificar planta</h3>
+        <label>Nombre<input id="editar-nombre" name="nombre" required></label>
+        <label>Especie<select id="editar-especie" name="especie" required></select></label>
+        <label>Identificador único<input id="editar-dispositivo" readonly></label>
+        <label>Fotografía (opcional)<input name="fotografia" type="file" accept="image/*"></label>
+        <div class="acciones"><button type="submit">Guardar cambios</button><button id="cancelar-edicion" type="button">Cancelar</button></div>
+      </form>
+      <div id="confirmar-desvinculacion" hidden>
+        <h3>¿Desvincular esta matera?</h3>
+        <p>Se retirará el registro activo y se archivará el historial de esta vinculación. La matera podrá registrarse nuevamente con el mismo QR.</p>
+        <div class="acciones"><button id="confirmar-eliminacion" type="button">Confirmar desvinculación</button><button id="cancelar-eliminacion" type="button">Cancelar</button></div>
+      </div>
+    </section>
+
+    <!-- UI-06: PERFIL -->
+    <section id="perfil" class="tarjeta pantalla" hidden>
+      <h2>Mi perfil</h2>
+      <form id="editar-perfil" class="formulario">
+        <label>Correo electrónico<input id="perfil-correo" type="email" readonly></label>
+        <label>Nombre de usuario<input id="perfil-nombre" name="nombre" required></label>
+        <label>Imagen de perfil (opcional)<input id="perfil-imagen" type="file" accept="image/*"></label>
+        <button type="submit">Guardar perfil</button>
+      </form>
+      <div class="acciones"><button type="button" id="perfil-cambiar-clave">Cambiar contraseña</button></div>
+    </section>
+  </section>
+  <p id="mensaje" role="status" aria-live="polite"></p>
+</main>
+<script src="script.js"></script>
+<script>
+  // Navegación visual compatible con el script.js existente.
+  (() => {
+    const pantallas = ["inicio", "materas", "registrar-planta", "detalle", "perfil"];
+    function mostrar(id) {
+      if (!pantallas.includes(id)) return;
+      for (const nombre of pantallas) document.getElementById(nombre).hidden = nombre !== id;
+    }
+    document.querySelectorAll("[data-pantalla]").forEach(b => b.addEventListener("click", () => mostrar(b.dataset.pantalla)));
+    const authVistas = ["vista-login", "vista-registro", "vista-recuperar", "vista-cambio-clave"];
+    function mostrarAuth(id) {
+      if (!authVistas.includes(id)) return;
+      authVistas.forEach(nombre => document.getElementById(nombre).hidden = nombre !== id);
+    }
+    document.querySelectorAll("[data-auth-vista]").forEach(b => b.addEventListener("click", () => mostrarAuth(b.dataset.authVista)));
+    document.querySelectorAll(".alternar-clave").forEach(c => c.addEventListener("change", () => {
+      c.dataset.objetivo.split(",").forEach(id => { const e=document.getElementById(id); if(e)e.type=c.checked?"text":"password"; });
+    }));
+    const listado = document.getElementById("plantas");
+    listado.addEventListener("click", e => { if(e.target.closest("button")) mostrar("detalle"); });
+    const alta = document.getElementById("crear");
+    alta.addEventListener("submit", () => { setTimeout(() => { if(!document.getElementById("panel").hidden) mostrar("materas"); }, 800); });
+    const sesion = document.getElementById("login");
+    sesion.addEventListener("submit", () => { setTimeout(() => { if(!document.getElementById("panel").hidden) mostrar("inicio"); }, 800); });
+    function alternar(id, visible){document.getElementById(id).hidden=!visible;}
+    document.getElementById("abrir-edicion").addEventListener("click", () => alternar("editar-planta",true));
+    document.getElementById("cancelar-edicion").addEventListener("click", () => alternar("editar-planta",false));
+    document.getElementById("abrir-desvinculacion").addEventListener("click", () => alternar("confirmar-desvinculacion",true));
+    document.getElementById("cancelar-eliminacion").addEventListener("click", () => alternar("confirmar-desvinculacion",false));
+    document.getElementById("perfil-cambiar-clave").addEventListener("click", () => {document.getElementById("panel").hidden=true;document.getElementById("auth").hidden=false;mostrarAuth("vista-cambio-clave");});
+  })();
+</script>
 </body>
 </html>
